@@ -1,9 +1,10 @@
 
 from fastapi import APIRouter
-from backend.rag.rag_pipeline_simple import chat_with_rag
+from fastapi import APIRouter
+from backend.rag.rag_pipeline2 import rag_generate_ollama, retriever_global
 
 router = APIRouter()
 
 @router.post("/", response_model=str)
 def chat_endpoint(query: str):
-    return chat_with_rag(query)
+    return rag_generate_ollama(query, retriever_global)

@@ -1057,7 +1057,7 @@ new file mode 100644
 +    try:
 +        print("Current article prompt length is:", len(prompt))
 +        response = ollama.chat(
-+            model="qwen2.5vl:latest",
++            model="deepseek-r1:1.5b",
 +            messages=[{
 +                "role": "user",
 +                "content": prompt

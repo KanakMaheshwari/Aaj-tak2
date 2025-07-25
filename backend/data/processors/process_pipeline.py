@@ -234,10 +234,12 @@ async def call_the_ollama(article_detail_dict_data):
     try:
         print("Current article prompt length is:", len(prompt))
         response = ollama.chat(
-            model="qwen2.5vl:latest",
+            model="deepseek-r1:1.5b",
+            think=False,
             messages=[{
                 "role": "user",
                 "content": prompt
+
             }],
             options={
                 "temperature": 0.5

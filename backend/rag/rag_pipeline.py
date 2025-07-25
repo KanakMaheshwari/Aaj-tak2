@@ -47,7 +47,7 @@ embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
 def load_processed_article():
     try:
         if os.path.exists(PROCESSED_ARTICLES_PATH):
-            with open(PROCESSED_ARTICLES_PATH, "r") as f:
+            with open(PROCESSED_ARTICLES_PATH, "r",encoding="utf-8") as f:
                 return json.load(f)
         return []
     except Exception as e:
@@ -197,7 +197,9 @@ Context: {context}
 Answer in a concise, accurate manner, using the context provided.'''
     try:
         response = ollama.chat(
-            model="qwen2.5vl:latest",
+            model="deepseek-r1:1.5b",
+            think=False,
+
             messages=[{
                 "role": "user",
                 "content": prompt
