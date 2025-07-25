@@ -1,9 +1,9 @@
 
 from fastapi import APIRouter
-from backend.services import chat_service
+from backend.rag.rag_pipeline_simple import chat_with_rag
 
 router = APIRouter()
 
 @router.post("/", response_model=str)
-def chat_with_rag(query: str):
-    return chat_service.get_chat_response(query)
+def chat_endpoint(query: str):
+    return chat_with_rag(query)

@@ -17,7 +17,6 @@ from backend.data.extractors.rss_main import get_all_parsed_article_links_from_r
 from backend.database.connection import SessionLocal, Base, engine
 from backend.models.article import Article as DBArticle
 
-# Ensure database tables are created when this script is run directly
 Base.metadata.create_all(bind=engine)
 
 
@@ -26,7 +25,6 @@ def save_articles_to_db(articles):
     try:
         for article_data in articles:
             if article_data:
-                # Ensure all required fields are present and handle potential missing keys
                 existing_article = db.query(DBArticle).filter_by(link=article_data.get("link", "")).first()
                 if existing_article:
                     print(f"Skipping duplicate article: {article_data.get('title')} - {article_data.get('link')}")
@@ -66,16 +64,20 @@ from backend.data.config import (
 dimension = 384
 embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
 nlp = spacy.load("en_core_web_sm")
-similarity_search_index = faiss.IndexFlatL2(dimension)
+similarity_search_index = None
 seen_urls = {}
 seen_texts = []
 SIMILARITY_THRESHOLD = 0.90
 
 
-# Load history if exists
-if os.path.exists(VECTOR_STORE_PATH):
-    print("Loading FAISS index...")
-    index = faiss.read_index(VECTOR_STORE_PATH)
+def initialize_vector_store():
+    global similarity_search_index
+    if os.path.exists(VECTOR_STORE_PATH):
+        print("Loading FAISS index...")
+        similarity_search_index = faiss.read_index(VECTOR_STORE_PATH)
+    else:
+        print("FAISS index not found, initializing a new one.")
+        similarity_search_index = faiss.IndexFlatL2(dimension)
 
 if os.path.exists(SEEN_URLS_PATH):
     with open(SEEN_URLS_PATH, "r") as f:
@@ -384,5 +386,6 @@ async def process_pipeline(all_articles):
 
 
 if __name__ == "__main__":
+    initialize_vector_store()
     all_articles = get_all_parsed_article_links_from_rss()
-    asyncio.run(process_pipeline(all_articles[:2]))
+    asyncio.run(process_pipeline(all_articles[:30]))

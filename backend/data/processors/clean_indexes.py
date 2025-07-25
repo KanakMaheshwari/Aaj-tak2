@@ -9,8 +9,8 @@ from backend.data.config import (
     RESULTS_PATH,
     GROUPED_PROCESSED_ARTICLES_PATH,
 )
-
-
+from backend.database.connection import SessionLocal
+from backend.models.article import Article as DBArticle
 
 def clean_data(confirm=False):
     try:
@@ -65,6 +65,17 @@ def clean_data(confirm=False):
             else:
                 print(f"Directory not found, will create: {dir}")
                 os.makedirs(dir, exist_ok=True)
+
+        db = SessionLocal()
+        try:
+            num_deleted = db.query(DBArticle).delete()
+            db.commit()
+            print(f"Deleted {num_deleted} articles from the database.")
+        except Exception as e:
+            db.rollback()
+            print(f"Error cleaning database: {e}")
+        finally:
+            db.close()
 
         print("Cleaning completed successfully")
         return True
