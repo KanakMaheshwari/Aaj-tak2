@@ -22,6 +22,8 @@ export const ChatWithArticle = ({ article }: ChatWithArticleProps) => {
   ]);
   const [inputValue, setInputValue] = useState('');
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
 
@@ -33,10 +35,14 @@ export const ChatWithArticle = ({ article }: ChatWithArticleProps) => {
     setMessages((prev) => [...prev, userMessage]);
     const query = inputValue;
     setInputValue('');
+    setIsLoading(true);
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/v1/chat/?query=${encodeURIComponent(query)}`
+        `http://127.0.0.1:8000/api/v1/chat/?query=${encodeURIComponent(query)}`,
+        {
+          method: 'POST',
+        }
       );
       const aiResponseText = await response.text();
       const aiResponse: Message = {
@@ -53,6 +59,8 @@ export const ChatWithArticle = ({ article }: ChatWithArticleProps) => {
         text: 'Sorry, I am having trouble connecting to the server. Please try again later.',
       };
       setMessages((prev) => [...prev, aiResponse]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -80,6 +88,15 @@ export const ChatWithArticle = ({ article }: ChatWithArticleProps) => {
             </div>
           </div>
         ))}
+        {isLoading && (
+          <div className="mb-4 max-w-3/4 mr-auto">
+            <div className="p-3 rounded-lg bg-white border rounded-bl-none">
+              <div className="flex items-center">
+                <div className="dot-pulse"></div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       <div className="p-4 border-t">
         <div className="flex">
@@ -90,10 +107,12 @@ export const ChatWithArticle = ({ article }: ChatWithArticleProps) => {
             onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
             placeholder="Ask a question about this article..."
             className="flex-1 px-4 py-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            disabled={isLoading}
           />
           <button
             onClick={handleSendMessage}
             className="px-4 py-2 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700"
+            disabled={isLoading}
           >
             <SendIcon className="h-5 w-5" />
           </button>

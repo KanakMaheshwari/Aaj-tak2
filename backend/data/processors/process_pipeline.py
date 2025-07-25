@@ -158,7 +158,7 @@ def response_to_dic(content):
         if i % 2 == 0:
             continue
         else:
-            dic[splitting[i - 1]] = splitting[i]
+            dic[str(splitting[i - 1]).strip()] = splitting[i]
     return dic
 
 def precompute_chunks(article_text, content_hash):
@@ -285,8 +285,8 @@ async def process_article(article_detail_dict_data):
         return None
 
     print("sending call to LLM")
-    # llm_response = await call_the_llm(article_detail_dict_data)
-    llm_response = await call_the_ollama(article_detail_dict_data)
+    llm_response = await call_the_llm(article_detail_dict_data)
+    # llm_response = await call_the_ollama(article_detail_dict_data)
 
 
     # save the embeddings

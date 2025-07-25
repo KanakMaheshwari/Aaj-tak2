@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { CategoryFilter } from './CategoryFilter';
 import { ArticleList } from './ArticleList';
 import { Article } from '../data/articles';
-import { Search } from './Search';
 
-export const HomePage = () => {
+type HomePageProps = {
+  searchQuery: string;
+};
+
+export const HomePage = ({ searchQuery }: HomePageProps) => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [articles, setArticles] = useState<Article[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -32,7 +34,6 @@ export const HomePage = () => {
   return (
     <div className="space-y-6">
       <h1 className="text-3xl font-bold">Latest News</h1>
-      <Search onSearch={setSearchQuery} />
       <CategoryFilter selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />
       <ArticleList articles={articles} />
     </div>
