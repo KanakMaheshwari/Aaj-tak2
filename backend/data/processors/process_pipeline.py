@@ -14,6 +14,41 @@ from sentence_transformers import SentenceTransformer
 from sklearn.cluster import DBSCAN
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from backend.data.extractors.rss_main import get_all_parsed_article_links_from_rss
+from backend.database.connection import SessionLocal, Base, engine
+from backend.models.article import Article as DBArticle
+
+# Ensure database tables are created when this script is run directly
+Base.metadata.create_all(bind=engine)
+
+
+def save_articles_to_db(articles):
+    db = SessionLocal()
+    try:
+        for article_data in articles:
+            if article_data:
+                # Ensure all required fields are present and handle potential missing keys
+                existing_article = db.query(DBArticle).filter_by(link=article_data.get("link", "")).first()
+                if existing_article:
+                    print(f"Skipping duplicate article: {article_data.get('title')} - {article_data.get('link')}")
+                    continue
+
+                db_article = DBArticle(
+                    title=article_data.get("title", ""),
+                    summary=article_data.get("ai_output", {}).get("Summary", ""),
+                    category=article_data.get("ai_output", {}).get("Category", ""),
+                    link=article_data.get("link", ""),
+                    author=", ".join(article_data.get("author", [""])),
+                    date=article_data.get("date", ""),
+                    content=article_data.get("article", ""),
+                )
+                db.add(db_article)
+        db.commit()
+        print(f"Saved {len(articles)} articles to the database.")
+    except Exception as e:
+        db.rollback()
+        print(f"Error saving articles to database: {e}")
+    finally:
+        db.close()
 
 
 
@@ -335,9 +370,11 @@ async def process_pipeline(all_articles):
                 article["cluster"] = -1
     print("Saved DBSCAN clusters")
 
-    with open(PROCESSED_ARTICLES_PATH, "w") as p:
+    with open(PROCESSED_ARTICLES_PATH, "w", encoding="utf-8") as p:
         json.dump(processed_articles, p, ensure_ascii=False, indent=2)
     print(f"Saved {len(processed_articles)} processed articles to {PROCESSED_ARTICLES_PATH}")
+    save_articles_to_db(processed_articles)
+
 
 
 
@@ -348,4 +385,4 @@ async def process_pipeline(all_articles):
 
 if __name__ == "__main__":
     all_articles = get_all_parsed_article_links_from_rss()
-    asyncio.run(process_pipeline(all_articles[:20]))
+    asyncio.run(process_pipeline(all_articles[:2]))
