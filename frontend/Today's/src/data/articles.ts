@@ -6,7 +6,7 @@ export type Article = {
   category: string;
   summary: string;
   content: string;
-  imageUrl: string;
+  img_link: string;
   imageCaption: string;
 };
 export const articles: Article[] = [{

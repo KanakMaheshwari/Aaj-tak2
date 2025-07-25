@@ -38,6 +38,8 @@ def save_articles_to_db(articles):
                     author=", ".join(article_data.get("author", [""])),
                     date=article_data.get("date", ""),
                     content=article_data.get("article", ""),
+                    img_link = article_data.get("image","")
+
                 )
                 db.add(db_article)
         db.commit()
@@ -97,7 +99,8 @@ async def fetch_article(article):
                 "article": current_article.text,
                 "author": current_article.authors if current_article.authors else ["Unknown"],
                 "date": getattr(current_article, 'published_date', None) or "Unknown",
-                "link": article['link']
+                "link": article['link'],
+                "image":current_article.top_image
 
             }
 
@@ -390,4 +393,4 @@ async def process_pipeline(all_articles):
 if __name__ == "__main__":
     initialize_vector_store()
     all_articles = get_all_parsed_article_links_from_rss()
-    asyncio.run(process_pipeline(all_articles[:30]))
+    asyncio.run(process_pipeline(all_articles[:50]))

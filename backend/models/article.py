@@ -12,3 +12,4 @@ class Article(Base):
     content = Column(Text)
     summary = Column(Text)
     category = Column(String)
+    img_link = Column(String)
