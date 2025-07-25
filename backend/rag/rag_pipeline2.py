@@ -56,10 +56,31 @@ def rag_generate_ollama(query, retriever, model_name="deepseek-r1:1.5b", max_con
         chunks = [doc.page_content for doc in docs]
         context = "\n\n".join(chunks)[:max_context_length]
 
-        prompt = f"""You are an AI assistant answering questions based on the provided context.
-Question: {query}
-Context: {context}
-Answer in a concise, accurate manner, using only the context provided."""
+        prompt = f'''
+        You are an AI assistant helping users understand the day's top Australian news highlights.
+
+        Answer the question based ONLY on the provided **articles**, which are curated summaries from multiple reputable Australian news outlets. If the answer is not in the articles, clearly state that.
+
+        Use a clear, helpful, and concise tone. Mention article titles, sources, or frequencies only if directly relevant to the question.
+
+        ---
+
+        Your Question:
+        {query}
+
+        ---
+
+        Articles:
+        {context}
+
+        ---
+
+        Instructions:
+        - Be factual and to the point.
+        - Base your answer strictly on the provided articles.
+        - If the information is related but not directly answering the question, clarify that and mention what's available.
+        - If the articles don’t cover the topic, respond with: “This topic wasn’t covered in today’s news articles.”
+        '''
 
         response = ollama.chat(
             model=model_name,
