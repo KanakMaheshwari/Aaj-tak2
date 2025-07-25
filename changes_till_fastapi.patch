@@ -1,0 +1,1885 @@
+Subject: [PATCH] changes till fastapi
+---
+Index: .idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+new file mode 100644
+--- /dev/null	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
++++ b/.idea/.gitignore	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
+@@ -0,0 +1,3 @@
++# Default ignored files
++/shelf/
++/workspace.xml
+Index: .idea/Aaj-takk.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/Aaj-takk.iml b/.idea/Aaj-takk.iml
+new file mode 100644
+--- /dev/null	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
++++ b/.idea/Aaj-takk.iml	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="PYTHON_MODULE" version="4">
++  <component name="NewModuleRootManager">
++    <content url="file://$MODULE_DIR$">
++      <excludeFolder url="file://$MODULE_DIR$/.venv" />
++    </content>
++    <orderEntry type="jdk" jdkName="Python 3.10 (Aaj-takk) (2)" jdkType="Python SDK" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++</module>
+\ No newline at end of file
+Index: .idea/inspectionProfiles/profiles_settings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/inspectionProfiles/profiles_settings.xml b/.idea/inspectionProfiles/profiles_settings.xml
+new file mode 100644
+--- /dev/null	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
++++ b/.idea/inspectionProfiles/profiles_settings.xml	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
+@@ -0,0 +1,6 @@
++<component name="InspectionProjectProfileManager">
++  <settings>
++    <option name="USE_PROJECT_PROFILE" value="false" />
++    <version value="1.0" />
++  </settings>
++</component>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+new file mode 100644
+--- /dev/null	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
++++ b/.idea/misc.xml	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="Black">
++    <option name="sdkName" value="Python 3.10 (Aaj-takk) (2)" />
++  </component>
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.10 (Aaj-takk) (2)" project-jdk-type="Python SDK" />
++</project>
+\ No newline at end of file
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+new file mode 100644
+--- /dev/null	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
++++ b/.idea/modules.xml	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/Aaj-takk.iml" filepath="$PROJECT_DIR$/.idea/Aaj-takk.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
++++ b/.idea/vcs.xml	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: backend/api/routes/chat.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/api/routes/chat.py b/backend/api/routes/chat.py
+--- a/backend/api/routes/chat.py	(revision c3b1868adda73e60aac6f0b1848ae9b3abdb328f)
++++ b/backend/api/routes/chat.py	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
+@@ -1,0 +1,9 @@
++
++from fastapi import APIRouter
++from backend.services import chat_service
++
++router = APIRouter()
++
++@router.post("/", response_model=str)
++def chat_with_rag(query: str):
++    return chat_service.get_chat_response(query)
+Index: backend/data/config.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/data/config.py b/backend/data/config.py
+new file mode 100644
+--- /dev/null	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
++++ b/backend/data/config.py	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
+@@ -0,0 +1,18 @@
++
++import os
++
++# Base directory for generator stores
++GENERATOR_STORES_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "generator_stores"))
++
++# File paths
++VECTOR_STORE_PATH = os.path.join(GENERATOR_STORES_DIR, "faiss.index")
++PROCESSED_ARTICLES_PATH = os.path.join(GENERATOR_STORES_DIR, "processed_articles.json")
++SEEN_URLS_PATH = os.path.join(GENERATOR_STORES_DIR, "seen_articles.json")
++
++# Directory paths
++CHUNK_INDEX_DIR = os.path.join(GENERATOR_STORES_DIR, "chunk_indices")
++CACHE_DIR = os.path.join(GENERATOR_STORES_DIR, "query_cache")
++
++# Other paths
++RESULTS_PATH = os.path.abspath("results.jsonl")
++GROUPED_PROCESSED_ARTICLES_PATH = os.path.abspath("grouped_output.json")
+Index: backend/data/extractors/gc_extractor.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/data/extractors/gc_extractor.py b/backend/data/extractors/gc_extractor.py
+--- a/backend/data/extractors/gc_extractor.py	(revision c3b1868adda73e60aac6f0b1848ae9b3abdb328f)
++++ b/backend/data/extractors/gc_extractor.py	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
+@@ -1,4 +1,4 @@
+-from base_extractor import BaseRssParser
++from .base_extractor import BaseRssParser
+ 
+ class GCNews(BaseRssParser):
+     def parse_feed(self):
+Index: backend/data/extractors/independent_extractor.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/data/extractors/independent_extractor.py b/backend/data/extractors/independent_extractor.py
+--- a/backend/data/extractors/independent_extractor.py	(revision c3b1868adda73e60aac6f0b1848ae9b3abdb328f)
++++ b/backend/data/extractors/independent_extractor.py	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
+@@ -1,4 +1,4 @@
+-from base_extractor import BaseRssParser
++from .base_extractor import BaseRssParser
+ 
+ class IndependentNews(BaseRssParser):
+     def parse_feed(self):
+Index: backend/data/extractors/rss_main.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/data/extractors/rss_main.py b/backend/data/extractors/rss_main.py
+--- a/backend/data/extractors/rss_main.py	(revision c3b1868adda73e60aac6f0b1848ae9b3abdb328f)
++++ b/backend/data/extractors/rss_main.py	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
+@@ -1,7 +1,7 @@
+-from smn_extractor import SydneyMorningNews
+-from independent_extractor import IndependentNews
+-from gc_extractor import GCNews
+-from  config import *
++from .smn_extractor import SydneyMorningNews
++from .independent_extractor import IndependentNews
++from .gc_extractor import GCNews
++from .config import *
+ from newspaper import Article
+ from tqdm import tqdm
+ import json
+@@ -53,5 +53,4 @@
+ # for a in get_all_parsed_article_links_from_rss():
+ #     print(a)
+ 
+-# beep = fetch_articles_from_links(get_all_parsed_article_links_from_rss())
+ # print(beep)
+Index: backend/data/extractors/smn_extractor.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/data/extractors/smn_extractor.py b/backend/data/extractors/smn_extractor.py
+--- a/backend/data/extractors/smn_extractor.py	(revision c3b1868adda73e60aac6f0b1848ae9b3abdb328f)
++++ b/backend/data/extractors/smn_extractor.py	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
+@@ -1,4 +1,4 @@
+-from base_extractor import BaseRssParser
++from .base_extractor import BaseRssParser
+ 
+ class SydneyMorningNews(BaseRssParser):
+     def parse_feed(self):
+Index: backend/data/extractors/test/db_scan_clustering_test.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/data/extractors/test/db_scan_clustering_test.py b/backend/data/extractors/test/db_scan_clustering_test.py
+new file mode 100644
+--- /dev/null	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
++++ b/backend/data/extractors/test/db_scan_clustering_test.py	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
+@@ -0,0 +1,49 @@
++from sentence_transformers import SentenceTransformer
++from sklearn.cluster import DBSCAN
++from sklearn.metrics.pairwise import cosine_similarity
++import numpy as np
++import spacy
++
++nlp = spacy.load("en_core_web_sm")
++embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
++
++
++def preprocess(text):
++    doc = nlp(text.lower())
++    tokens = [t.lemma_ for t in doc if not t.is_stop and not t.is_punct]
++    return " ".join(tokens)
++
++
++def compute_dbscan_clusters(processed_articles, eps=0.4, min_samples=1):
++    if not processed_articles:
++        return []
++    embeddings = [embedding_model.encode(preprocess(article["article"])[:512], show_progress_bar=False)
++                  for article in processed_articles]
++
++    sims = cosine_similarity(embeddings)
++    print("\nCosine Similarity Matrix:")
++    print(np.round(sims, 2))
++
++    labels = DBSCAN(eps=eps, min_samples=min_samples, metric='cosine').fit_predict(np.array(embeddings))
++    return labels.tolist()
++
++
++def compute_dbscan_clusters_test():
++    processed_articles = [
++        {
++            "article": "Machine learning is a method of data analysis that automates analytical model building. It is a branch of artificial intelligence."},
++        {
++            "article": "Machine learning is a type of AI that allows software applications to become more accurate at predicting outcomes without being explicitly programmed."},
++        {
++            "article": "Cooking is both an art and a science. It involves the preparation of food using heat and combining ingredients in various ways."},
++        {
++            "article": "Cooking requires a deep understanding of ingredients, flavor, and timing. Many cultural traditions use cooking as a form of storytelling."}
++    ]
++
++    labels = compute_dbscan_clusters(processed_articles, eps=0.6, min_samples=1)
++    print("\nDBSCAN Cluster Labels:")
++    print(labels)
++
++
++if __name__ == "__main__":
++    compute_dbscan_clusters_test()
+Index: backend/data/extractors/test/is_similar_article_test.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/data/extractors/test/is_similar_article_test.py b/backend/data/extractors/test/is_similar_article_test.py
+new file mode 100644
+--- /dev/null	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
++++ b/backend/data/extractors/test/is_similar_article_test.py	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
+@@ -0,0 +1,98 @@
++import asyncio
++import numpy as np
++import faiss
++from sentence_transformers import SentenceTransformer
++import spacy
++from sklearn.cluster import DBSCAN
++
++SIMILARITY_THRESHOLD = 0.90
++dimension = 384
++embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
++nlp = spacy.load("en_core_web_sm")
++similarity_search_index = faiss.IndexFlatL2(dimension)
++seen_texts = []
++
++
++def preprocess(article_text):
++    tokenized_doc = nlp(article_text.lower())
++    tokens = [
++        token.lemma_
++        for token in tokenized_doc
++        if not token.is_stop and not token.is_punct
++    ]
++    return " ".join(tokens)
++
++
++async def generate_embedding(article_text):
++    return np.array(embedding_model.encode(article_text[:512]), dtype="float32")
++
++
++async def is_similar_article(article_text, embedding, enable_dbscan=True):
++    if similarity_search_index.ntotal > 0:
++        D, _ = similarity_search_index.search(np.array([embedding]), k=1)
++        distance = D[0][0]
++        cosine_sim = 1 - distance / 2
++        if cosine_sim > SIMILARITY_THRESHOLD:
++            return True
++
++    if enable_dbscan:
++        articles_to_compare = seen_texts + [article_text]
++        processed = [preprocess(t) for t in articles_to_compare]
++        embeddings = embedding_model.encode(processed)
++        labels = DBSCAN(eps=0.15, min_samples=2, metric='cosine').fit_predict(embeddings)
++        if labels[-1] != -1:
++            return True
++
++    return False
++
++
++async def main():
++    articles = [
++        """Machine learning is revolutionizing technology by enabling computers to learn from data without explicit programming. Algorithms like neural networks analyze patterns to make predictions or decisions. Applications include image recognition, natural language processing, and autonomous vehicles. Training models requires large datasets and computational power, often using GPUs. Supervised learning uses labeled data, while unsupervised learning finds hidden structures. Reinforcement learning optimizes actions through rewards. Challenges include overfitting, bias in data, and interpretability. Machine learning is driving innovation across industries, from healthcare to finance, transforming how we solve complex problems.""",
++        """Machine learning transforms technology, allowing systems to learn from data without direct coding. Neural networks and other algorithms identify patterns for predictions or decisions. It powers image recognition, language processing, and self-driving cars. Training demands big datasets and powerful GPUs. Supervised learning relies on labeled data, while unsupervised learning uncovers hidden patterns. Reinforcement learning improves actions via rewards. Issues like overfitting, biased data, and model interpretability persist. Machine learning fuels advancements in healthcare, finance, and more, reshaping problem-solving in diverse fields.""",
++        """Cooking is an art form that combines creativity and science. Techniques like baking, grilling, and sautéing transform raw ingredients into flavorful dishes. Fresh herbs, spices, and quality produce elevate taste. Recipes range from simple stir-fries to complex pastries. Cooking at home fosters healthy eating and family bonding. Modern tools like air fryers and sous-vide machines simplify preparation. Understanding flavor profiles and ingredient pairings is key. Cultural cuisines, like Italian or Thai, offer diverse experiences. Cooking requires practice but rewards with delicious meals and personal satisfaction.""",
++        """Soccer is the world’s most popular sport, uniting fans across cultures. Played with 11 players per team, it demands strategy, skill, and teamwork. Matches last 90 minutes, with goals scored by kicking a ball into the opponent’s net. Major tournaments like the FIFA World Cup captivate billions. Players like Messi and Ronaldo inspire with their agility and precision. Training focuses on fitness, ball control, and tactics. Fans create electric atmospheres in stadiums. Soccer promotes physical health and community spirit, making it a global phenomenon.""",
++        """Investing in the stock market offers opportunities to grow wealth but carries risks. Stocks represent ownership in companies, and their value fluctuates with market conditions. Diversification across sectors reduces risk. Researching company fundamentals, like earnings and debt, is crucial. Tools like mutual funds and ETFs simplify investing. Market trends, interest rates, and economic data influence stock prices. Long-term strategies, like buy-and-hold, often outperform short-term trading. Financial literacy helps investors make informed decisions. Despite volatility, disciplined investing can build wealth over time."""
++        """Investing is like soccer, its an art and an hobbies like to some is cooking or science. many may think it does not require a team like in sports but this is not true, even with the advancement in technology, stock trading is a risky profession and requires a lot of heard work. it is a complex field which involves a lot of earnings or a lot of debt. it requires a lot of computational power, often using GPUs. """
++
++    ]
++
++    similar_count = 0
++    processed_articles = []
++
++    print("Processing articles...")
++    for i, article_text in enumerate(articles, 1):
++        print(f"\nArticle {i}:")
++        try:
++            embedding = await generate_embedding(article_text)
++
++            is_similar = await is_similar_article(article_text, embedding, enable_dbscan=True)
++
++            if is_similar:
++                print(f"Article {i} is similar to a previous article.")
++                similar_count += 1
++            else:
++                print(f"Article {i} is unique.")
++                similarity_search_index.add(np.array([embedding]))
++                seen_texts.append(article_text)
++                processed_articles.append({
++                    "article_number": i,
++                    "text": article_text[:50] + "...",  # Truncated for brevity
++                    "status": "unique"
++                })
++
++        except Exception as e:
++            print(f"Error processing article {i}: {e}")
++            continue
++
++    print("\nResults:")
++    print(f"Number of similar articles detected: {similar_count}")
++    print(f"Unique articles saved to index: {similarity_search_index.ntotal}")
++    print(f"Articles in seen_texts: {len(seen_texts)}")
++    print("\nProcessed articles:")
++    for article in processed_articles:
++        print(f"Article {article['article_number']}: {article['text']} ({article['status']})")
++
++
++if __name__ == "__main__":
++    asyncio.run(main())
+\ No newline at end of file
+Index: backend/data/generator_stores/processed_articles.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/data/generator_stores/processed_articles.json b/backend/data/generator_stores/processed_articles.json
+new file mode 100644
+--- /dev/null	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
++++ b/backend/data/generator_stores/processed_articles.json	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
+@@ -0,0 +1,349 @@
++[
++  {
++    "title": "🤕 eBike injuries increase 112%",
++    "article": "G’day and welcome back to another GC Minute Thursday, a picture-perfect winter’s afternoon.\n\nIt’s July 24.\n\nAnd a big congratulations to the Gold Coast Titans’ Des Hasler, leading the team into the weekend against the Warriors for his 500th game.\n\nAn incredible milestone.\n\nIn today's newsletter\n\nOne Big Thing: E-bikes and e-scooters under public scrutiny Connection, conversation and Creation at: Commune in Mermaid Dos Amigos tackle the Shitbox: Rally 2025, raising money for Cancer Council Dreamworld owner: Now riding high Trending: U-shaped apartments behind Broadbeach Around The Web: eBike scrutiny | Des Hasler's 500th | AI-overviews smash Google's clicks | Woman linked to missing Gold Coast kids | 35,000 mangroves planted and heaps more Upcoming Events\n\nEnjoy the weekly GC Minute? We are fully reader-supported and can only do all of this with your help.\n\nPlease sign up or gift a subscription today 🙌\n\nGive a gift subscription\n\nWeekend Weather and Surf\n\n🖖🛸 What the Trek: This cheeky little website is tracking just how close we are to living like we’re on the Starship Enterprise.\n\nFrom universal translators to teleportation, it’s a bold mission to chart humanity’s trek to Trek.\n\nWarp 9? Not quite. But the holodeck? Maybe soon..\n\nLive Housing Price Index\n\nIt’s been a minute, but the nation’s capitals are now all back in the green 🟢 📈\n\nPut your business in front of thousands of Gold Coast locals. Click here . [Ad]\n\n1. One Big Thing: E-bikes and e-scooters go under public scrutiny\n\nBy Marshall Hall\n\nSource: Gold Coast Minute\n\nWhat’s Happening: After years of injuries, deaths and public complaints about the dangers of e-scooters and e-bikes, the State Government has officially started an e-mobility safety inquiry on the Gold Coast.\n\nWhy It Matters: E-scooters and e-bikes have surged in popularity, but so have crashes, injuries and complaints, and this inquiry aims to guide safer policy, especially with the Brisbane 2032 Olympics on the horizon.\n\nBy the Numbers\n\n5 deaths in Queensland this year from personal mobility device crashes.\n\n112% rise in e-mobility-related injuries between 2021 and 2024.\n\n1200+ public submissions received so far.\n\nLocal Impact: The Gold Coast is a hotspot for e-mobility, with schools, shopping precincts, and footpaths all under pressure from unsafe use, prompting locals to demand better enforcement and education.\n\nWhat The People Say\n\nTransport Minister Brent Mickelberg said the inquiry was a vital step in ensuring Queensland’s transport network evolved safely and inclusively. “We are taking action in a bid to save lives and prevent people getting hurt, and these hearings are a chance for the public to help guide the safe and reliable future use of e-scooters and e-bikes across Queensland, particularly in the lead up to the 2032 Games.”\n\nMember for Currumbin Laura Gerber said she shared locals’ concerns about the rise in dangerous and illegal e-scooter and e-bike use on the Southern Gold Coast. “The inquiry has a broad remit to look at changes needed to address community concern, and the rising injuries and fatalities linked to e-mobility use,” Ms Gerber said.\n\nWhat To Look For Next: With public hearings being held also on the Sunshine Coast, up in Townsville and Brisbane as part of Parliamentary Inquiry into e-mobility safety, there will be plenty of discussions and likely some rule changes ahead.\n\nRead more\n\nLeave a comment\n\n💼 🧾 Smart Legal for GC Startups\n\nLaunching a business on the Gold Coast? Before you book a lawyer, check out Lawpath, Australia’s #1 online legal platform.\n\nWhether you’re starting a side hustle in Burleigh or scaling from Southport, Lawpath keeps it simple, fast and affordable.\n\n👉 Get started now\n\n2.\n\nLeave a comment\n\nShare\n\nWeekly Dream Gig\n\nThis week: Roll out the layout grids – Metricon Homes needs a Graphic Designer to elevate their Studio M experience at Robina HQ.\n\nFrom signage and POS to brochures and launch collateral, you’ll shape the visual vibe of Australia’s #1 home builder with detail-driven design and tidy typography.\n\nPaying $80,000.00+ (according to Seek filters), this full-time gig comes with housing discounts, career growth, and a supportive team that actually values great design.\n\n💻 Starting a business on the GC?\n\nAustralia’s #1 online legal platform helps with legal docs, ABNs, and more and it’s 100% online.\n\n👉 Start here\n\n[Ad]\n\n3. Dos Amigos tackle Shitbox Rally 2025\n\nFrom L to R: Barry Pittman, Justin Pries, Andrea Pittman, Dan Pittman – conducting a fundraising BBQ at Robina Bunnings with the assistance of the Robina Lions Club (Photo supplied)\n\nWhat’s Happening: Team Dos Amigos, Dan Pittman and Justin Pries, are revving up for the Shitbox Rally 2025 Spring edition, taking on a 7-day, Alice Springs-to-Gold Coast trek in a $1,500 Proton Jumbuck, all in the name of cancer research.\n\nWhy It Matters: This isn’t a race, but a national fundraising juggernaut with every dent and dusty detour helping fund Cancer Council’s critical work, uniting Aussies through hardship, hope and horsepower in a race across a big chunk of the country.\n\nBy the Numbers\n\n$56 million has been raised by Shitbox Rally since 2010\n\n$5,000 is the minimum fundraising target per team each year\n\n$25,000 has already been raised by Dos Amigos toward their $35,000 goal\n\nOver $50,000 raised by the team across two rallies\n\nLocal Impact: Gold Coast businesses have jumped on board, with sponsors including Axima Logistics, Beko ANZ and Reload Media, with locals able to support the raffle draw at Club Robina on 23 August.\n\nPrizes include a luxe houseboat holiday!\n\nRough Roads, Big Rewards: From Uluru to the Great Dividing Range, it’s a drive through breathtaking country and brutal terrain — made bearable by banter, camaraderie and cause.\n\nWhat The People Say\n\nDan shares, “This will be the second rally for myself and the first for Justin. For the last couple of months and with the support of a lot of businesses and organisations in our community, we have been simultaneously fundraising while also preparing our 2006 Proton Jumbuck (affectionately known as Professor Proton) for the journey. Our participation in the rally is all to support those friends and family members in our lives who have been touched by cancer. With every dollar raised and every kilometre driven the rally is creating a better future for those impacted by cancer.”\n\nWhat To Look For Next: Fundraising continues through to the October rally, follow the journey or donate at the Dos Amigos Shitbox Rally page.\n\nDonate\n\nRead more\n\nShare\n\n4.\n\nDreamworld owner now riding high Marshall Hall · Jul 23 Dreamworld owner Coast Entertainment Holdings has reported that its theme parks and attractions are enjoying their best results since 2016. Coast Entertainment Holdings, as it is now called, has had a tumultuous time since.. Read full story\n\n5. Trending\n\nLeave a comment\n\n🕰️ Recent newsletters\n\n6. Around The Web (Snippets)\n\n6. Upcoming Events\n\n🏉 AFL QClash 29 – Gold Coast SUNS v Brisbane Lions: July 26, from 12:30 pm to 4:30 pm; catch the fierce rivalry at People First Stadium, Carrara\n\n🤾🏼 Netball Showdown - Hart Premier Netball League – July 27, 2–7pm, The Gold Coast Titans take on the Brisbane North Cougars in a fiery clash at Carrara Indoor Sports Stadium.\n\n🏢 ROKLive 2025 – Industrial Automation Expo: July 29–31, 9 am to 5 pm; hands‑on displays in manufacturing, mining, utilities & more at the Gold Coast Convention Centre\n\n🏀 Australian Boomers v University of Colorado Buffaloes (Basketball): July 31 (warm‑up game), but check team schedule – curtain‑raiser show at Carrara Stadium\n\n🏁 BLEACH Arts Festival (preview showcase)*: Opening events from July 31, running 31 Jul–10 Aug; but sneak‑peek activities may start earlier — in Surfers Paradise",
++    "author": [
++      "Worthview Group"
++    ],
++    "date": "Unknown",
++    "link": "https://www.thegcminute.com.au/p/ebike-injuries-increase-112",
++    "ai_output": {
++      "Category": " Sports  ",
++      "Highlight": " Gold Coast Titans' Des Hasler celebrates 500th game.  ",
++      "Summary": " Des Hasler of the Gold Coast Titans marks a significant milestone in his career, leading the team into their weekend match against the Warriors, highlighting the team's achievements and the importance of such moments in sports."
++    },
++    "chunk_index": "/Users/pratap/code/Aaj-takk/backend/data/generator_stores/chunk_indices/chunk_c0c433cbeee3e74a6d248e14861f650d.index",
++    "chunks": [
++      "G’day and welcome back to another GC Minute Thursday, a picture-perfect winter’s afternoon.\n\nIt’s July 24.\n\nAnd a big congratulations to the Gold Coast Titans’ Des Hasler, leading the team into the weekend against the Warriors for his 500th game.",
++      "An incredible milestone.\n\nIn today's newsletter",
++      "One Big Thing: E-bikes and e-scooters under public scrutiny Connection, conversation and Creation at: Commune in Mermaid Dos Amigos tackle the Shitbox: Rally 2025, raising money for Cancer Council Dreamworld owner: Now riding high Trending: U-shaped",
++      "owner: Now riding high Trending: U-shaped apartments behind Broadbeach Around The Web: eBike scrutiny | Des Hasler's 500th | AI-overviews smash Google's clicks | Woman linked to missing Gold Coast kids | 35,000 mangroves planted and heaps more",
++      "kids | 35,000 mangroves planted and heaps more Upcoming Events",
++      "Enjoy the weekly GC Minute? We are fully reader-supported and can only do all of this with your help.\n\nPlease sign up or gift a subscription today 🙌\n\nGive a gift subscription\n\nWeekend Weather and Surf",
++      "Weekend Weather and Surf\n\n🖖🛸 What the Trek: This cheeky little website is tracking just how close we are to living like we’re on the Starship Enterprise.",
++      "From universal translators to teleportation, it’s a bold mission to chart humanity’s trek to Trek.\n\nWarp 9? Not quite. But the holodeck? Maybe soon..\n\nLive Housing Price Index",
++      "Live Housing Price Index\n\nIt’s been a minute, but the nation’s capitals are now all back in the green 🟢 📈\n\nPut your business in front of thousands of Gold Coast locals. Click here . [Ad]",
++      "1. One Big Thing: E-bikes and e-scooters go under public scrutiny\n\nBy Marshall Hall\n\nSource: Gold Coast Minute",
++      "Source: Gold Coast Minute\n\nWhat’s Happening: After years of injuries, deaths and public complaints about the dangers of e-scooters and e-bikes, the State Government has officially started an e-mobility safety inquiry on the Gold Coast.",
++      "Why It Matters: E-scooters and e-bikes have surged in popularity, but so have crashes, injuries and complaints, and this inquiry aims to guide safer policy, especially with the Brisbane 2032 Olympics on the horizon.\n\nBy the Numbers",
++      "By the Numbers\n\n5 deaths in Queensland this year from personal mobility device crashes.\n\n112% rise in e-mobility-related injuries between 2021 and 2024.\n\n1200+ public submissions received so far.",
++      "1200+ public submissions received so far.\n\nLocal Impact: The Gold Coast is a hotspot for e-mobility, with schools, shopping precincts, and footpaths all under pressure from unsafe use, prompting locals to demand better enforcement and education.",
++      "What The People Say",
++      "Transport Minister Brent Mickelberg said the inquiry was a vital step in ensuring Queensland’s transport network evolved safely and inclusively. “We are taking action in a bid to save lives and prevent people getting hurt, and these hearings are a",
++      "people getting hurt, and these hearings are a chance for the public to help guide the safe and reliable future use of e-scooters and e-bikes across Queensland, particularly in the lead up to the 2032 Games.”",
++      "Member for Currumbin Laura Gerber said she shared locals’ concerns about the rise in dangerous and illegal e-scooter and e-bike use on the Southern Gold Coast. “The inquiry has a broad remit to look at changes needed to address community concern,",
++      "at changes needed to address community concern, and the rising injuries and fatalities linked to e-mobility use,” Ms Gerber said.",
++      "What To Look For Next: With public hearings being held also on the Sunshine Coast, up in Townsville and Brisbane as part of Parliamentary Inquiry into e-mobility safety, there will be plenty of discussions and likely some rule changes ahead.",
++      "Read more\n\nLeave a comment\n\n💼 🧾 Smart Legal for GC Startups\n\nLaunching a business on the Gold Coast? Before you book a lawyer, check out Lawpath, Australia’s #1 online legal platform.",
++      "Whether you’re starting a side hustle in Burleigh or scaling from Southport, Lawpath keeps it simple, fast and affordable.\n\n👉 Get started now\n\n2.\n\nLeave a comment\n\nShare\n\nWeekly Dream Gig",
++      "2.\n\nLeave a comment\n\nShare\n\nWeekly Dream Gig\n\nThis week: Roll out the layout grids – Metricon Homes needs a Graphic Designer to elevate their Studio M experience at Robina HQ.",
++      "From signage and POS to brochures and launch collateral, you’ll shape the visual vibe of Australia’s #1 home builder with detail-driven design and tidy typography.",
++      "Paying $80,000.00+ (according to Seek filters), this full-time gig comes with housing discounts, career growth, and a supportive team that actually values great design.\n\n💻 Starting a business on the GC?",
++      "💻 Starting a business on the GC?\n\nAustralia’s #1 online legal platform helps with legal docs, ABNs, and more and it’s 100% online.\n\n👉 Start here\n\n[Ad]\n\n3. Dos Amigos tackle Shitbox Rally 2025",
++      "[Ad]\n\n3. Dos Amigos tackle Shitbox Rally 2025\n\nFrom L to R: Barry Pittman, Justin Pries, Andrea Pittman, Dan Pittman – conducting a fundraising BBQ at Robina Bunnings with the assistance of the Robina Lions Club (Photo supplied)",
++      "What’s Happening: Team Dos Amigos, Dan Pittman and Justin Pries, are revving up for the Shitbox Rally 2025 Spring edition, taking on a 7-day, Alice Springs-to-Gold Coast trek in a $1,500 Proton Jumbuck, all in the name of cancer research.",
++      "Why It Matters: This isn’t a race, but a national fundraising juggernaut with every dent and dusty detour helping fund Cancer Council’s critical work, uniting Aussies through hardship, hope and horsepower in a race across a big chunk of the country.",
++      "By the Numbers\n\n$56 million has been raised by Shitbox Rally since 2010\n\n$5,000 is the minimum fundraising target per team each year\n\n$25,000 has already been raised by Dos Amigos toward their $35,000 goal",
++      "Over $50,000 raised by the team across two rallies",
++      "Local Impact: Gold Coast businesses have jumped on board, with sponsors including Axima Logistics, Beko ANZ and Reload Media, with locals able to support the raffle draw at Club Robina on 23 August.\n\nPrizes include a luxe houseboat holiday!",
++      "Prizes include a luxe houseboat holiday!\n\nRough Roads, Big Rewards: From Uluru to the Great Dividing Range, it’s a drive through breathtaking country and brutal terrain — made bearable by banter, camaraderie and cause.\n\nWhat The People Say",
++      "Dan shares, “This will be the second rally for myself and the first for Justin. For the last couple of months and with the support of a lot of businesses and organisations in our community, we have been simultaneously fundraising while also",
++      "have been simultaneously fundraising while also preparing our 2006 Proton Jumbuck (affectionately known as Professor Proton) for the journey. Our participation in the rally is all to support those friends and family members in our lives who have",
++      "friends and family members in our lives who have been touched by cancer. With every dollar raised and every kilometre driven the rally is creating a better future for those impacted by cancer.”",
++      "What To Look For Next: Fundraising continues through to the October rally, follow the journey or donate at the Dos Amigos Shitbox Rally page.\n\nDonate\n\nRead more\n\nShare\n\n4.",
++      "Dreamworld owner now riding high Marshall Hall · Jul 23 Dreamworld owner Coast Entertainment Holdings has reported that its theme parks and attractions are enjoying their best results since 2016. Coast Entertainment Holdings, as it is now called,",
++      "Entertainment Holdings, as it is now called, has had a tumultuous time since.. Read full story",
++      "5. Trending\n\nLeave a comment\n\n🕰️ Recent newsletters\n\n6. Around The Web (Snippets)\n\n6. Upcoming Events\n\n🏉 AFL QClash 29 – Gold Coast SUNS v Brisbane Lions: July 26, from 12:30 pm to 4:30 pm; catch the fierce rivalry at People First Stadium, Carrara",
++      "🤾🏼 Netball Showdown - Hart Premier Netball League – July 27, 2–7pm, The Gold Coast Titans take on the Brisbane North Cougars in a fiery clash at Carrara Indoor Sports Stadium.",
++      "🏢 ROKLive 2025 – Industrial Automation Expo: July 29–31, 9 am to 5 pm; hands‑on displays in manufacturing, mining, utilities & more at the Gold Coast Convention Centre",
++      "🏀 Australian Boomers v University of Colorado Buffaloes (Basketball): July 31 (warm‑up game), but check team schedule – curtain‑raiser show at Carrara Stadium",
++      "🏁 BLEACH Arts Festival (preview showcase)*: Opening events from July 31, running 31 Jul–10 Aug; but sneak‑peek activities may start earlier — in Surfers Paradise"
++    ],
++    "cluster": 0
++  },
++  {
++    "title": "Gold Coast landmark shines bright for National Eosinophilic Week",
++    "article": "What’s happening?\n\nOn Sunday, 3 August 2025, Level 77 of the Q1 Building on the Gold Coast will light up in pink and purple as part of National Eosinophilic Week, held from 3 to 9 August. This event is part of the #EOSLightUp campaign led by ausEE Inc., Australia’s national support and advocacy organisation for eosinophilic diseases.\n\nWhy it matters?\n\nPink and purple represent eosinophils, a type of white blood cell. When too many eosinophils build up in parts of the body, they can cause inflammation and tissue damage. These conditions, known as eosinophil‑associated diseases, often require long‑term management.\n\nEosinophils under a microscope. (Photo supplied)\n\nSarah Gray, CEO and Founder of ausEE Inc., said, “Eosinophilic diseases can have a profound impact on a person’s daily life. They often involve chronic symptoms and require ongoing monitoring and long‑term management. Our goal during National Eosinophilic Week is to raise awareness and urgently needed funds for medical research.”\n\nLocal impact\n\nSkyPoint is supporting the lighting of Q1’s Level 77. Gold Coast residents are encouraged to visit the landmark on the night, take photos safely and share them on social media using #EOSLightUp, #EOSaware and #NEOSW2025. Photos can also be emailed to admin@ausee.org.\n\nBy the numbers\n\nMore than 125 landmarks will light up across Australia and New Zealand during the week.\n\nEosinophilic oesophagitis affects around 1 in 1,000 people and can cause severe swallowing difficulties and food impaction, sometimes requiring emergency medical care.\n\nTwo research projects are ready to start but need funding.\n\nZoom in\n\nOn Friday, 8 August, ausEE will hold its major fundraiser, the Top 8 Challenge. People are asked to avoid milk, wheat, egg, soy, peanuts, tree nuts, fish and shellfish for one day to highlight the restrictions faced by people with EoE.\n\nZoom out\n\nThe Gold Coast joins a coordinated effort across Australia and New Zealand to raise awareness of eosinophilic diseases.\n\nWhat to look for next?\n\nHelp by joining the Top 8 Challenge or donate at https://top8challenge.com\n\n.",
++    "author": [
++      "Worthview Group"
++    ],
++    "date": "Unknown",
++    "link": "https://www.thegcminute.com.au/p/gold-coast-landmark-shines-bright",
++    "ai_output": {
++      "Category": " Health",
++      "Highlight": " Q1 Building on the Gold Coast will light up in pink and purple to raise awareness for eosinophilic diseases.",
++      "Summary": " On Sunday, 3 August 2025, the Q1 Building on the Gold Coast will light up in pink and purple as part of National Eosinophilic Week. This event is part of the #EOSLightUp campaign led by ausEE Inc., Australia’s national support and advocacy organization for eosinophilic diseases. The lighting of Q1 is part of a coordinated effort across Australia and New Zealand to raise awareness of eosinophilic diseases."
++    },
++    "chunk_index": "/Users/pratap/code/Aaj-takk/backend/data/generator_stores/chunk_indices/chunk_2c1b65ca83d5a6fcfcfd56960a757eb5.index",
++    "chunks": [
++      "What’s happening?",
++      "On Sunday, 3 August 2025, Level 77 of the Q1 Building on the Gold Coast will light up in pink and purple as part of National Eosinophilic Week, held from 3 to 9 August. This event is part of the #EOSLightUp campaign led by ausEE Inc., Australia’s",
++      "campaign led by ausEE Inc., Australia’s national support and advocacy organisation for eosinophilic diseases.",
++      "Why it matters?",
++      "Pink and purple represent eosinophils, a type of white blood cell. When too many eosinophils build up in parts of the body, they can cause inflammation and tissue damage. These conditions, known as eosinophil‑associated diseases, often require",
++      "as eosinophil‑associated diseases, often require long‑term management.",
++      "Eosinophils under a microscope. (Photo supplied)",
++      "Sarah Gray, CEO and Founder of ausEE Inc., said, “Eosinophilic diseases can have a profound impact on a person’s daily life. They often involve chronic symptoms and require ongoing monitoring and long‑term management. Our goal during National",
++      "long‑term management. Our goal during National Eosinophilic Week is to raise awareness and urgently needed funds for medical research.”",
++      "Local impact",
++      "SkyPoint is supporting the lighting of Q1’s Level 77. Gold Coast residents are encouraged to visit the landmark on the night, take photos safely and share them on social media using #EOSLightUp, #EOSaware and #NEOSW2025. Photos can also be emailed",
++      "and #NEOSW2025. Photos can also be emailed to admin@ausee.org.",
++      "By the numbers\n\nMore than 125 landmarks will light up across Australia and New Zealand during the week.",
++      "Eosinophilic oesophagitis affects around 1 in 1,000 people and can cause severe swallowing difficulties and food impaction, sometimes requiring emergency medical care.\n\nTwo research projects are ready to start but need funding.\n\nZoom in",
++      "Zoom in\n\nOn Friday, 8 August, ausEE will hold its major fundraiser, the Top 8 Challenge. People are asked to avoid milk, wheat, egg, soy, peanuts, tree nuts, fish and shellfish for one day to highlight the restrictions faced by people with EoE.",
++      "Zoom out\n\nThe Gold Coast joins a coordinated effort across Australia and New Zealand to raise awareness of eosinophilic diseases.\n\nWhat to look for next?\n\nHelp by joining the Top 8 Challenge or donate at https://top8challenge.com\n\n."
++    ],
++    "cluster": 0
++  },
++  {
++    "title": "Dreamworld owner now riding high",
++    "article": "Dreamworld (Photo supplied)\n\nDreamworld owner Coast Entertainment Holdings has reported that its theme parks and attractions are enjoying their best results since 2016.\n\nCoast Entertainment Holdings, as it is now called, has had tumultuous time since the death of four visitors in 2016.\n\nFour tourists - Kate Goodchild, Luke Dorsett, Roozbeh Araghi and Cindy Low - died in October 2016 when a raft on a malfunctioning water ride at Dreamworld crashed into another and overturned.\n\nThe theme park operator was later charged, convicted and",
++    "author": [
++      "Marshall Hall"
++    ],
++    "date": "Unknown",
++    "link": "https://www.thegcminute.com.au/p/dreamworld-owner-now-riding-high",
++    "ai_output": {
++      "Category": " Sports  ",
++      "Highlight": " Dreamworld reports best results since 2016 following a turbulent period following a fatal incident in 2016.  ",
++      "Summary": " Dreamworld, now Coast Entertainment Holdings, has seen its best performance since 2016 despite a tragic incident where four tourists died in October 2016 due to a malfunctioning water ride. The company was later charged and convicted in relation to the incident."
++    },
++    "chunk_index": "/Users/pratap/code/Aaj-takk/backend/data/generator_stores/chunk_indices/chunk_4f61153b866c03df39cdd596d73738a9.index",
++    "chunks": [
++      "Dreamworld (Photo supplied)\n\nDreamworld owner Coast Entertainment Holdings has reported that its theme parks and attractions are enjoying their best results since 2016.",
++      "Coast Entertainment Holdings, as it is now called, has had tumultuous time since the death of four visitors in 2016.",
++      "Four tourists - Kate Goodchild, Luke Dorsett, Roozbeh Araghi and Cindy Low - died in October 2016 when a raft on a malfunctioning water ride at Dreamworld crashed into another and overturned.",
++      "The theme park operator was later charged, convicted and"
++    ],
++    "cluster": 0
++  },
++  {
++    "title": "Woman linked to disappearance of children from Gold Coast",
++    "article": "Police have released images of a woman, below, they say has disappeared with three children from northern Gold Coast last week.\n\nThe woman, 41-year-old with the first name of Monique, is wanted for questioning in relation to the disappearance of the children from Pimpama on",
++    "author": [
++      "Marshall Hall"
++    ],
++    "date": "Unknown",
++    "link": "https://www.thegcminute.com.au/p/woman-linked-to-disappearance-of",
++    "ai_output": {
++      "Category ": " Lifestyle  ",
++      "Highlight ": " Police release images of a missing woman and three children from northern Gold Coast.  ",
++      "Summary": " Police have released images of a 41-year-old woman named Monique, who is sought in connection with the disappearance of three children from Pimpama on the northern Gold Coast. The incident occurred last week, and authorities are seeking questioning from the woman."
++    },
++    "chunk_index": "/Users/pratap/code/Aaj-takk/backend/data/generator_stores/chunk_indices/chunk_d0bf5204992dad031cf85b1af8d505e8.index",
++    "chunks": [
++      "Police have released images of a woman, below, they say has disappeared with three children from northern Gold Coast last week.",
++      "The woman, 41-year-old with the first name of Monique, is wanted for questioning in relation to the disappearance of the children from Pimpama on"
++    ],
++    "cluster": -1
++  },
++  {
++    "title": "Connection, conversation, and creation at Commune",
++    "article": "In this space, you are not a role, a title, a list of responsibilities. You are a woman. That’s enough.\n\nI don’t know of a single woman who doesn’t have at least 10 tabs open in her brain right now. Running a household, parenting, staying healthy, kin keeping, texting people back, performing in paid work, running errands, avoiding danger in public places, taking contraceptives, navigating microaggressions, managing menopause, and balancing double standards, to name a few.\n\nThis is why events like Commune, which very rarely come around, are so important for the well-being of women.\n\nCommune is more than just an event; it’s a soul-nourishing space for women to come together, just as we are. It’s a day carved out of the chaos, where we drop the weight of expectation and gather in truth, vulnerability, and strength.\n\nYou might be navigating grief, burnout, hormonal changes, domestic and family violence, mental health, parenting, healing, joy, ambition, or heartbreak. You might be supporting someone who is. All women are welcome to laugh, cry and be seen in this space.\n\nThere will be real tattoos, meditation, breathwork, inspirational speakers, food, drinks, professional headshots, music, laughter, and more.\n\nCommune will be held on Sunday 27 July 12pm-4pm at Mylky Space in Mermaid Beach. Tickets are just $50 with the code COMMUNE50 for a limited time: https://events.humanitix.com/commune-bhubg2m3\n\nCome as you are. No mask. No armour. Just you.",
++    "author": [
++      "Courtney Mulder"
++    ],
++    "date": "Unknown",
++    "link": "https://www.thegcminute.com.au/p/connection-conversation-and-creation",
++    "ai_output": {
++      "Category": " Lifestyle  ",
++      "Highlight": " Commune is a soul-nourishing event for women to gather, share, and support each other in various aspects of life.  ",
++      "Summary": " Commune, a soul-nourishing event for women, offers a day of truth, vulnerability, and strength. It's a space for women to connect, share experiences, and support each other through various life challenges, including grief, burnout, hormonal changes, and family violence. The event will feature real tattoos, meditation, breathwork, inspirational speakers, food, drinks, and more, all in a supportive and inclusive environment. It takes place on Sunday, 27 July, from 12pm to 4pm at Mylky Space in Mermaid Beach, with tickets priced at $50."
++    },
++    "chunk_index": "/Users/pratap/code/Aaj-takk/backend/data/generator_stores/chunk_indices/chunk_84923635adbc1fe33442d745867cfb35.index",
++    "chunks": [
++      "In this space, you are not a role, a title, a list of responsibilities. You are a woman. That’s enough.",
++      "I don’t know of a single woman who doesn’t have at least 10 tabs open in her brain right now. Running a household, parenting, staying healthy, kin keeping, texting people back, performing in paid work, running errands, avoiding danger in public",
++      "work, running errands, avoiding danger in public places, taking contraceptives, navigating microaggressions, managing menopause, and balancing double standards, to name a few.",
++      "This is why events like Commune, which very rarely come around, are so important for the well-being of women.",
++      "Commune is more than just an event; it’s a soul-nourishing space for women to come together, just as we are. It’s a day carved out of the chaos, where we drop the weight of expectation and gather in truth, vulnerability, and strength.",
++      "You might be navigating grief, burnout, hormonal changes, domestic and family violence, mental health, parenting, healing, joy, ambition, or heartbreak. You might be supporting someone who is. All women are welcome to laugh, cry and be seen in this",
++      "are welcome to laugh, cry and be seen in this space.",
++      "There will be real tattoos, meditation, breathwork, inspirational speakers, food, drinks, professional headshots, music, laughter, and more.",
++      "Commune will be held on Sunday 27 July 12pm-4pm at Mylky Space in Mermaid Beach. Tickets are just $50 with the code COMMUNE50 for a limited time: https://events.humanitix.com/commune-bhubg2m3\n\nCome as you are. No mask. No armour. Just you."
++    ],
++    "cluster": -1
++  },
++  {
++    "title": "QLD finalists recognised in 2025 You are ACE Awards",
++    "article": "What’s happening?\n\nAgeing Australia has announced the finalists for the 2025 You are ACE! Awards ahead of Aged Care Employee Day on Thursday, 7 August.\n\nThe awards recognise outstanding work in aged care, retirement living and seniors housing. More than 500 nominations were received from across Australia, with Queensland strongly represented across many of…",
++    "author": [
++      "Worthview Group"
++    ],
++    "date": "Unknown",
++    "link": "https://www.thegcminute.com.au/p/qld-finalists-recognised-in-2025",
++    "ai_output": {
++      "Category": " Lifestyle  ",
++      "Highlight": " Ageing Australia announces finalists for the 2025 You are ACE! Awards ahead of Aged Care Employee Day.  ",
++      "Summary": " Ageing Australia has unveiled the finalists for the 2025 You are ACE! Awards, celebrating excellence in aged care, retirement living, and seniors housing. Over 500 nominations were received, with Queensland showing strong representation."
++    },
++    "chunk_index": "/Users/pratap/code/Aaj-takk/backend/data/generator_stores/chunk_indices/chunk_1898cb76a969f8006d660eb20d922641.index",
++    "chunks": [
++      "What’s happening?\n\nAgeing Australia has announced the finalists for the 2025 You are ACE! Awards ahead of Aged Care Employee Day on Thursday, 7 August.",
++      "The awards recognise outstanding work in aged care, retirement living and seniors housing. More than 500 nominations were received from across Australia, with Queensland strongly represented across many of…"
++    ],
++    "cluster": 0
++  },
++  {
++    "title": "City beefs up green credentials",
++    "article": "Aerial photo of Nathan Valley (Photo supplied)\n\nThe City of Gold Coast has purchased 143 hectares of land in Mount Nathan as part its long-term plan to protect the city’s green spaces.\n\nThe property, which was snapped up for close to $4 million, sits between Beaudesert-Nerang Road and Mount Nathan Road.\n\nThe council chose to purchase the property because of i…",
++    "author": [
++      "Marshall Hall"
++    ],
++    "date": "Unknown",
++    "link": "https://www.thegcminute.com.au/p/city-beefs-up-green-credentials",
++    "ai_output": {
++      "Category": " Lifestyle  ",
++      "Highlight": " The City of Gold Coast has acquired 143 hectares of land in Mount Nathan to preserve green spaces.  ",
++      "Summary": " The City of Gold Coast has purchased 143 hectares of land in Mount Nathan for nearly $4 million as part of its long-term plan to protect the city’s green spaces. The property is located between Beaudesert-Nerang Road and Mount Nathan Road and was chosen for its environmental significance."
++    },
++    "chunk_index": "/Users/pratap/code/Aaj-takk/backend/data/generator_stores/chunk_indices/chunk_dd33f842acfaf7a998ab6f5c8819fb64.index",
++    "chunks": [
++      "Aerial photo of Nathan Valley (Photo supplied)\n\nThe City of Gold Coast has purchased 143 hectares of land in Mount Nathan as part its long-term plan to protect the city’s green spaces.",
++      "The property, which was snapped up for close to $4 million, sits between Beaudesert-Nerang Road and Mount Nathan Road.\n\nThe council chose to purchase the property because of i…"
++    ],
++    "cluster": -1
++  },
++  {
++    "title": "Sanctuary Cove hosts Women’s PGA Championship",
++    "article": "Sanctuary Cove Golf and Country Club ( Photo supplied)\n\nAustralia’s best female professional golfers will return to the Gold Coast next year when Sanctuary Cove hosts the Australian WPGA Championship.\n\nBarring a cyclone, which led to the cancellation of this year’s event, the Championship and the associated Festival of Golf will run from March 19-22 at The …",
++    "author": [
++      "Marshall Hall"
++    ],
++    "date": "Unknown",
++    "link": "https://www.thegcminute.com.au/p/sanctuary-cove-hosts-womens-pgg-championship",
++    "ai_output": {
++      "Category": " Sports  ",
++      "Highlight": " Australia's top female golfers will return to the Gold Coast for the Australian WPGA Championship at Sanctuary Cove in March.  ",
++      "Summary": " Australia's best female professional golfers will gather at Sanctuary Cove Golf and Country Club in March for the Australian WPGA Championship, following the cancellation of this year's event due to a cyclone."
++    },
++    "chunk_index": "/Users/pratap/code/Aaj-takk/backend/data/generator_stores/chunk_indices/chunk_1fc39efea4aab8baa8024231711d6390.index",
++    "chunks": [
++      "Sanctuary Cove Golf and Country Club ( Photo supplied)\n\nAustralia’s best female professional golfers will return to the Gold Coast next year when Sanctuary Cove hosts the Australian WPGA Championship.",
++      "Barring a cyclone, which led to the cancellation of this year’s event, the Championship and the associated Festival of Golf will run from March 19-22 at The …"
++    ],
++    "cluster": 0
++  },
++  {
++    "title": "Gold Coasters appointed to Screen Queensland Board",
++    "article": "Patrcia Alner (Photo courtesy of Screen Queensland)\n\nThree Gold Coasters have been appointed to new roles on the board of Screen Queensland.\n\nThe appointees are Bond University executive Patricia Alner, former RACV Royal Pines general manager John Morris and environmental and planning lawyer Venesa Gleeson are set to join the Queensland’s Government-owned f…",
++    "author": [
++      "Marshall Hall"
++    ],
++    "date": "Unknown",
++    "link": "https://www.thegcminute.com.au/p/gold-coasters-appointed-to-screen",
++    "ai_output": {
++      "Category": " Lifestyle  ",
++      "Highlight": " Patricia Alner, John Morris, and Venesa Gleeson appointed to new roles on Screen Queensland's board.  ",
++      "Summary": " Three prominent figures from Queensland's entertainment and business sectors have been named to new positions on the board of Screen Queensland, a government-owned film and television production company. This appointment aims to enhance the board's expertise and contribute to the state's film and television industry."
++    },
++    "chunk_index": "/Users/pratap/code/Aaj-takk/backend/data/generator_stores/chunk_indices/chunk_5344385c1d56bbbec14186061d8a5e91.index",
++    "chunks": [
++      "Patrcia Alner (Photo courtesy of Screen Queensland)\n\nThree Gold Coasters have been appointed to new roles on the board of Screen Queensland.",
++      "The appointees are Bond University executive Patricia Alner, former RACV Royal Pines general manager John Morris and environmental and planning lawyer Venesa Gleeson are set to join the Queensland’s Government-owned f…"
++    ],
++    "cluster": 1
++  },
++  {
++    "title": "New rules on medicinal cannabis gain Guild support",
++    "article": "What’s happening?\n\nThe Pharmacy Guild of Australia has welcomed new guidelines released by the Australian Health Practitioner Regulation Agency (AHPRA) for practitioners prescribing and dispensing medicinal cannabis.\n\nNational President Professor Trent Twomey said, “Like AHPRA, the Guild has been concerned about recent reports of irresponsible prescribing …",
++    "author": [
++      "Worthview Group"
++    ],
++    "date": "Unknown",
++    "link": "https://www.thegcminute.com.au/p/new-rules-on-medicinal-cannabis-gain",
++    "ai_output": {
++      "Category ": " Health",
++      "Highlight ": " The Pharmacy Guild of Australia has welcomed new guidelines from AHPRA regarding the prescribing and dispensing of medicinal cannabis.",
++      "Summary": " The Pharmacy Guild of Australia has welcomed new guidelines from the Australian Health Practitioner Regulation Agency (AHPRA) for the prescribing and dispensing of medicinal cannabis. National President Professor Trent Twomey expressed concern about irresponsible prescribing and highlighted the importance of these guidelines in ensuring proper regulation and safety."
++    },
++    "chunk_index": "/Users/pratap/code/Aaj-takk/backend/data/generator_stores/chunk_indices/chunk_42fc57887a0056b423a5286b01897c3b.index",
++    "chunks": [
++      "What’s happening?\n\nThe Pharmacy Guild of Australia has welcomed new guidelines released by the Australian Health Practitioner Regulation Agency (AHPRA) for practitioners prescribing and dispensing medicinal cannabis.",
++      "National President Professor Trent Twomey said, “Like AHPRA, the Guild has been concerned about recent reports of irresponsible prescribing …"
++    ],
++    "cluster": -1
++  },
++  {
++    "title": "20 years strong as Kokoda Challenge returns to Gold Coast",
++    "article": "The Kokoda Challenge Returns to the Gold Coast (photo supplied)\n\nWhat’s happening?\n\nThe Kokoda Challenge returns to the Gold Coast from 19–20 July 2025, marking its 20th year of testing endurance, mateship and resilience. Known as Australia's toughest team endurance event, it winds through the Gold Coast Hinterland across three distances: 30km, 48km and 96k…",
++    "author": [
++      "Worthview Group"
++    ],
++    "date": "Unknown",
++    "link": "https://www.thegcminute.com.au/p/20-years-strong-as-kokoda-challenge",
++    "ai_output": {
++      "Category": " Sports  ",
++      "Highlight": " The Kokoda Challenge returns to the Gold Coast, marking its 20th year as Australia's toughest team endurance event.  ",
++      "Summary": " The Kokoda Challenge, a 20-year-old endurance event, returns to the Gold Coast from July 19-20, 2025, featuring three distances"
++    },
++    "chunk_index": "/Users/pratap/code/Aaj-takk/backend/data/generator_stores/chunk_indices/chunk_93daa3737422acf4116c64a9e490488b.index",
++    "chunks": [
++      "The Kokoda Challenge Returns to the Gold Coast (photo supplied)\n\nWhat’s happening?",
++      "The Kokoda Challenge returns to the Gold Coast from 19–20 July 2025, marking its 20th year of testing endurance, mateship and resilience. Known as Australia's toughest team endurance event, it winds through the Gold Coast Hinterland across three",
++      "through the Gold Coast Hinterland across three distances: 30km, 48km and 96k…"
++    ],
++    "cluster": 0
++  },
++  {
++    "title": "Free 5-minute health checks for National Diabetes Week 2025",
++    "article": "Photo courtesy of Diabetes Australia\n\nWhat’s happening?\n\nAustralians can get a free digital health check at participating Priceline Pharmacies during National Diabetes Week, running from 13 to 19 July 2025. These self-service checks, available in over 300 stores, take around five minutes and help people understand their risk of type 2 diabetes, cardiovascul…",
++    "author": [
++      "Worthview Group"
++    ],
++    "date": "Unknown",
++    "link": "https://www.thegcminute.com.au/p/free-5-minute-health-checks-for-national",
++    "ai_output": {
++      "Category": " Health",
++      "Highlight": " Australians can get a free digital health check at participating Priceline Pharmacies during National Diabetes Week.",
++      "Summary": " During National Diabetes Week (13-19 July 2025), Australians can visit participating Priceline Pharmacies for a free digital health check. These quick, self-service checks take around five minutes and help people assess their risk of type 2 diabetes and cardiovascular disease."
++    },
++    "chunk_index": "/Users/pratap/code/Aaj-takk/backend/data/generator_stores/chunk_indices/chunk_fb5c2bb1560205ae7e1ad4414db98a64.index",
++    "chunks": [
++      "Photo courtesy of Diabetes Australia\n\nWhat’s happening?",
++      "Australians can get a free digital health check at participating Priceline Pharmacies during National Diabetes Week, running from 13 to 19 July 2025. These self-service checks, available in over 300 stores, take around five minutes and help people",
++      "stores, take around five minutes and help people understand their risk of type 2 diabetes, cardiovascul…"
++    ],
++    "cluster": -1
++  },
++  {
++    "title": "Oh Lord it’s hard to be humble",
++    "article": "By King Cane Toad\n\nIt’s a great time to be a Queenslander.\n\nThe sun is shining brighter, the colours of the flowers seem more vivid, the weather is warm and, oh, did I mention that the Maroons won Game Three in the State of Origin.\n\nState of Origin was born in 1980 and in 45 years of Origin history, Queensland have now held up the shield 27 times. The Blues,…",
++    "author": [
++      "Gc Minute Contributor"
++    ],
++    "date": "Unknown",
++    "link": "https://www.thegcminute.com.au/p/oh-lord-its-hard-to-be-humble",
++    "ai_output": {
++      "Category": " Sports",
++      "Highlight": " Queensland's victory in Game Three of the State of Origin series.",
++      "Summary": " King Cane Toad celebrates Queensland's win in the State of Origin series, highlighting the team's 27 victories and the sunny, vibrant weather in Queensland."
++    },
++    "chunk_index": "/Users/pratap/code/Aaj-takk/backend/data/generator_stores/chunk_indices/chunk_4125148dd0e6ac64c1771c78bf30ea38.index",
++    "chunks": [
++      "By King Cane Toad\n\nIt’s a great time to be a Queenslander.\n\nThe sun is shining brighter, the colours of the flowers seem more vivid, the weather is warm and, oh, did I mention that the Maroons won Game Three in the State of Origin.",
++      "State of Origin was born in 1980 and in 45 years of Origin history, Queensland have now held up the shield 27 times. The Blues,…"
++    ],
++    "cluster": -1
++  },
++  {
++    "title": "Car industry couple take the wheel at Titans",
++    "article": "Gold Coast business titans Brett and Rebecca Frizelle have taken full ownership of the city’s National Rugby League team.\n\nThe former car industry power couple are now 100 per cent behind the wheel at the Gold Coast Titans after their former partners, Darryl and Joanne Kelly, agreed to drive off in a separate direction.\n\nThe Frizelle and Kelly clans have jo…",
++    "author": [
++      "Marshall Hall"
++    ],
++    "date": "Unknown",
++    "link": "https://www.thegcminute.com.au/p/car-industry-couple-take-the-wheel",
++    "ai_output": {
++      "Category ": " Sports  ",
++      "Highlight ": " Gold Coast business titans Brett and Rebecca Frizelle now fully own the city's National Rugby League team after their former partners agreed to sell their stake.  ",
++      "Summary": " Brett and Rebecca Frizelle, former car industry power couple, have acquired full ownership of the Gold Coast Titans, the city's National Rugby League team, after their former partners, Darryl and Joanne Kelly, decided to sell their shares."
++    },
++    "chunk_index": "/Users/pratap/code/Aaj-takk/backend/data/generator_stores/chunk_indices/chunk_1f9f6c3a03aa6d3e936bb9ae5b152ab7.index",
++    "chunks": [
++      "Gold Coast business titans Brett and Rebecca Frizelle have taken full ownership of the city’s National Rugby League team.",
++      "The former car industry power couple are now 100 per cent behind the wheel at the Gold Coast Titans after their former partners, Darryl and Joanne Kelly, agreed to drive off in a separate direction.\n\nThe Frizelle and Kelly clans have jo…"
++    ],
++    "cluster": 1
++  }
++]
+\ No newline at end of file
+Index: backend/data/generator_stores/seen_articles.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/data/generator_stores/seen_articles.json b/backend/data/generator_stores/seen_articles.json
+new file mode 100644
+--- /dev/null	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
++++ b/backend/data/generator_stores/seen_articles.json	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
+@@ -0,0 +1,1 @@
++{"https://www.thegcminute.com.au/p/ebike-injuries-increase-112": "c0c433cbeee3e74a6d248e14861f650d", "https://www.thegcminute.com.au/p/gold-coast-landmark-shines-bright": "2c1b65ca83d5a6fcfcfd56960a757eb5", "https://www.thegcminute.com.au/p/dreamworld-owner-now-riding-high": "4f61153b866c03df39cdd596d73738a9", "https://www.thegcminute.com.au/p/woman-linked-to-disappearance-of": "d0bf5204992dad031cf85b1af8d505e8", "https://www.thegcminute.com.au/p/connection-conversation-and-creation": "84923635adbc1fe33442d745867cfb35", "https://www.thegcminute.com.au/p/qld-finalists-recognised-in-2025": "1898cb76a969f8006d660eb20d922641", "https://www.thegcminute.com.au/p/city-beefs-up-green-credentials": "dd33f842acfaf7a998ab6f5c8819fb64", "https://www.thegcminute.com.au/p/sanctuary-cove-hosts-womens-pgg-championship": "1fc39efea4aab8baa8024231711d6390", "https://www.thegcminute.com.au/p/gold-coasters-appointed-to-screen": "5344385c1d56bbbec14186061d8a5e91", "https://www.thegcminute.com.au/p/new-rules-on-medicinal-cannabis-gain": "42fc57887a0056b423a5286b01897c3b", "https://www.thegcminute.com.au/p/20-years-strong-as-kokoda-challenge": "93daa3737422acf4116c64a9e490488b", "https://www.thegcminute.com.au/p/free-5-minute-health-checks-for-national": "fb5c2bb1560205ae7e1ad4414db98a64", "https://www.thegcminute.com.au/p/oh-lord-its-hard-to-be-humble": "4125148dd0e6ac64c1771c78bf30ea38", "https://www.thegcminute.com.au/p/car-industry-couple-take-the-wheel": "1f9f6c3a03aa6d3e936bb9ae5b152ab7"}
+\ No newline at end of file
+Index: backend/data/processors/clean_indexes.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/data/processors/clean_indexes.py b/backend/data/processors/clean_indexes.py
+new file mode 100644
+--- /dev/null	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
++++ b/backend/data/processors/clean_indexes.py	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
+@@ -0,0 +1,78 @@
++import os
++import shutil
++from backend.data.config import (
++    VECTOR_STORE_PATH,
++    PROCESSED_ARTICLES_PATH,
++    SEEN_URLS_PATH,
++    CHUNK_INDEX_DIR,
++    CACHE_DIR,
++    RESULTS_PATH,
++    GROUPED_PROCESSED_ARTICLES_PATH,
++)
++
++
++
++def clean_data(confirm=False):
++    try:
++        files_to_remove = [
++            VECTOR_STORE_PATH,
++            PROCESSED_ARTICLES_PATH,
++            SEEN_URLS_PATH,
++            RESULTS_PATH,
++            GROUPED_PROCESSED_ARTICLES_PATH
++        ]
++        directories_to_clear = [
++            CHUNK_INDEX_DIR,
++            CACHE_DIR
++        ]
++
++        print("Files to be removed:")
++        for file in files_to_remove:
++            print(f"- {file}")
++        print("Directories whose contents will be removed:")
++        for dir in directories_to_clear:
++            print(f"- {dir}")
++
++        if not confirm:
++            response = input("Are you sure you want to delete these ? (y/n): ")
++            if response.lower() != 'y':
++                print("Cleaning aborted by user")
++                return False
++
++        for file in files_to_remove:
++            if os.path.exists(file):
++                try:
++                    os.remove(file)
++                    print(f"Deleted file: {file}")
++                except Exception as e:
++                    print(f"Failed to delete file {file}: {e}")
++            else:
++                print(f"File not found, skipping: {file}")
++
++        for dir in directories_to_clear:
++            if os.path.exists(dir):
++                try:
++                    for item in os.listdir(dir):
++                        item_path = os.path.join(dir, item)
++                        if os.path.isfile(item_path):
++                            os.remove(item_path)
++                            print(f"Deleted file in directory: {item_path}")
++                        elif os.path.isdir(item_path):
++                            shutil.rmtree(item_path)
++                            print(f"Deleted subdirectory: {item_path}")
++                except Exception as e:
++                    print(f"Failed to clear directory {dir}: {e}")
++            else:
++                print(f"Directory not found, will create: {dir}")
++                os.makedirs(dir, exist_ok=True)
++
++        print("Cleaning completed successfully")
++        return True
++
++    except Exception as e:
++        print(f"Error during cleaning: {e}")
++        return False
++
++
++if __name__ == "__main__":
++    clean_data()
+\ No newline at end of file
+Index: backend/data/processors/process_pipeline.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/data/processors/process_pipeline.py b/backend/data/processors/process_pipeline.py
+new file mode 100644
+--- /dev/null	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
++++ b/backend/data/processors/process_pipeline.py	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
+@@ -0,0 +1,351 @@
++import hashlib
++import asyncio
++import json
++import faiss
++import numpy as np
++import spacy
++import ollama
++import os
++from tenacity import retry, stop_after_attempt, wait_exponential
++from tqdm import tqdm
++from together import Together
++from newspaper import Article
++from sentence_transformers import SentenceTransformer
++from sklearn.cluster import DBSCAN
++from langchain.text_splitter import RecursiveCharacterTextSplitter
++from backend.data.extractors.rss_main import get_all_parsed_article_links_from_rss
++
++
++
++
++from backend.data.config import (
++    PROCESSED_ARTICLES_PATH,
++    CHUNK_INDEX_DIR,
++    VECTOR_STORE_PATH,
++    SEEN_URLS_PATH,
++    RESULTS_PATH,
++    GROUPED_PROCESSED_ARTICLES_PATH,
++)
++
++
++dimension = 384
++embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
++nlp = spacy.load("en_core_web_sm")
++similarity_search_index = faiss.IndexFlatL2(dimension)
++seen_urls = {}
++seen_texts = []
++SIMILARITY_THRESHOLD = 0.90
++
++
++# Load history if exists
++if os.path.exists(VECTOR_STORE_PATH):
++    print("Loading FAISS index...")
++    index = faiss.read_index(VECTOR_STORE_PATH)
++
++if os.path.exists(SEEN_URLS_PATH):
++    with open(SEEN_URLS_PATH, "r") as f:
++        seen_urls = json.load(f)
++        seen_texts = list(seen_urls.values())
++
++
++async def fetch_article(article):
++    try:
++        current_article = Article(article['link'])
++        current_article.download()
++        current_article.parse()
++
++        if current_article.text and str(current_article.text).strip() != "":
++            article_detail_dict = {
++                "title": article.get('title', current_article.title),
++                "article": current_article.text,
++                "author": current_article.authors if current_article.authors else ["Unknown"],
++                "date": getattr(current_article, 'published_date', None) or "Unknown",
++                "link": article['link']
++
++            }
++
++            return article_detail_dict
++
++
++    except Exception as e:
++        print(f"Error processing link {article.get('link')}: {e}")
++        return None
++
++
++def preprocess(article_text):
++    tokenized_doc = nlp(article_text.lower())
++    tokens = [
++        token.lemma_
++        for token in tokenized_doc
++        if not token.is_stop and not token.is_punct
++    ]
++    return " ".join(tokens)
++
++
++async def generate_embedding(article_text):
++    return np.array(embedding_model.encode(article_text[:512],batch_size=32), dtype="float32",)
++
++    ### TODO .... KUCH NA, COMING BACK TO YOU AND SLEEP 😴. Good night ❤️
++
++
++async def is_similar_article(article_text, embedding, enable_dbscan=True):
++    if similarity_search_index.ntotal > 0:
++        D, _ = similarity_search_index.search(np.array([embedding]), k=1)
++        distance = D[0][0]
++        cosine_sim = 1 - distance / 2
++        if cosine_sim > SIMILARITY_THRESHOLD:
++            return True
++
++    if enable_dbscan:
++        ### TODO need to optimise this since it looks for in entire historical corpus
++        articles_to_compare = seen_texts + [article_text]
++        processed = [preprocess(t) for t in articles_to_compare]
++        embeddings = embedding_model.encode(processed,batch_size=32)
++        labels = DBSCAN(eps=0.5, min_samples=2, metric='cosine').fit_predict(embeddings)
++
++        if labels[-1] != -1:
++            return True
++
++    return False
++
++
++def response_to_dic(content):
++    replacement = content.replace("\n", ":")
++    splitting = replacement.split(':')
++    dic = {}
++    l = len(splitting)
++    for i in range(l):
++        if i % 2 == 0:
++            continue
++        else:
++            dic[splitting[i - 1]] = splitting[i]
++    return dic
++
++def precompute_chunks(article_text, content_hash):
++    text_splitter = RecursiveCharacterTextSplitter(chunk_size=250, chunk_overlap=50)
++    chunks = text_splitter.split_text(article_text)
++    chunk_embeddings = embedding_model.encode(chunks, show_progress_bar=False,batch_size=32)
++    chunk_index = faiss.IndexFlatL2(dimension)
++    chunk_index.add(np.array(chunk_embeddings, dtype="float32"))
++    chunk_index_path = os.path.join(CHUNK_INDEX_DIR, f"chunk_{content_hash}.index")
++    faiss.write_index(chunk_index, chunk_index_path)
++    return chunks, chunk_index_path
++
++@retry(
++    stop=stop_after_attempt(3),
++    wait=wait_exponential(multiplier=1,min=2,max=80),
++)
++async def call_the_llm(article_detail_dict_data):
++    prompt = f'''You are news summariser 
++     Given the Article text below, extract 
++     1.) Categorise into one of these: Sports, Lifestyle, Music , Finance
++     2.) Highlight
++     3.) Summary (80 words)
++
++     Article:
++
++      {article_detail_dict_data['article'][:4000]}
++
++     Format:
++     Category : <one word>
++     Highlight : <one line>
++     Summary :<80 words>
++     '''
++    try:
++        print("current article length is :", len(prompt))
++        client = Together(api_key="0a12e0c577c401ea0e5d79f44fba4fe49b8ef5b865e864c6f6e6965bb756540d")
++        response = client.chat.completions.create(
++
++            model="meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
++            messages=[{
++                "role": "user",
++                "content": prompt
++            }],
++            temperature=0.5
++        )
++        content = response.choices[0].message.content
++        response_dict = response_to_dic(content)
++        article_detail_dict_data["ai_output"] = response_dict
++        # print(content)
++        return response_to_dic(content)
++    except Exception as e:
++
++        print(f"Error while processing", e)
++
++
++
++@retry(
++    stop=stop_after_attempt(3),
++    wait=wait_exponential(multiplier=1, min=2, max=80),
++)
++async def call_the_ollama(article_detail_dict_data):
++    prompt = f'''You are a news summariser 
++     Given the Article text below, extract 
++     1.) Categorise into one of these: Sports, Lifestyle, Music, Finance
++     2.) Highlight
++     3.) Summary (80 words)
++
++     Article:
++
++      {article_detail_dict_data['article'][:4000]}
++
++     Format:
++     Category : <one word>
++     Highlight : <one line>
++     Summary : <80 words>
++     '''
++    try:
++        print("Current article prompt length is:", len(prompt))
++        response = ollama.chat(
++            model="qwen2.5vl:latest",
++            messages=[{
++                "role": "user",
++                "content": prompt
++            }],
++            options={
++                "temperature": 0.5
++            }
++        )
++        content = response["message"]["content"]
++        response_dict = response_to_dic(content)
++        article_detail_dict_data["ai_output"] = response_dict
++        return response_dict
++    except Exception as e:
++        print(f"Error while processing LLM call with Ollama: {e}")
++        raise  # Re-raise for tenacity to handle retries
++
++
++async def process_article(article_detail_dict_data):
++    if not article_detail_dict_data or not article_detail_dict_data.get('article'):
++        return None
++
++    url = article_detail_dict_data['link']
++    content_hash = hashlib.md5(article_detail_dict_data['article'].encode()).hexdigest()
++
++    if url in seen_urls or content_hash in seen_urls.values():
++        print("Url already processed : Duplicate")
++        return None
++
++    try:
++        embedding = await generate_embedding(article_detail_dict_data['article'])
++    except Exception as e:
++        print(f"Error generating embedding for {url}: {e}")
++        return None
++
++    try:
++        print("\n Checking for duplicate articles")
++        is_similar = await is_similar_article(article_detail_dict_data['article'], embedding, enable_dbscan=True)
++        if is_similar:
++            print(f"Similar article found {article_detail_dict_data['title']}")
++            return None
++    except Exception as e:
++        print(f"Error checking similarity for {url}: {e}")
++        return None
++
++    print("sending call to LLM")
++    # llm_response = await call_the_llm(article_detail_dict_data)
++    llm_response = await call_the_ollama(article_detail_dict_data)
++
++
++    # save the embeddings
++    if llm_response:
++        similarity_search_index.add(np.array([embedding]))
++        seen_urls[url] = content_hash
++        seen_texts.append(article_detail_dict_data['article'])
++        chunks, chunk_index_path = precompute_chunks(article_detail_dict_data['article'], content_hash)
++        article_detail_dict_data["ai_output"] = llm_response
++        article_detail_dict_data["chunk_index"] = chunk_index_path
++        article_detail_dict_data["chunks"] = chunks
++    return article_detail_dict_data
++
++
++def compute_dbscan_clusters(processed_articles):
++    if not processed_articles:
++        print("No articles to cluster, returning empty labels")
++        return []
++
++    valid_embeddings = []
++    valid_indices = []
++
++    # Filter valid articles and collect embeddings
++    for idx, article in enumerate(processed_articles):
++        try:
++            if article is not None and "article" in article and article["article"]:
++                text = preprocess(article["article"][:512])
++                embedding = embedding_model.encode(text, show_progress_bar=False)
++                valid_embeddings.append(embedding)
++                valid_indices.append(idx)
++            else:
++                print(f"Skipping invalid article at index {idx}: {article}")
++        except Exception as e:
++            print(f"Error processing article at index {idx} for embedding: {e}")
++            continue
++
++    if not valid_embeddings:
++        print("No valid embeddings for clustering, returning default labels")
++        return [-1] * len(processed_articles)
++
++    try:
++        embeddings = np.array(valid_embeddings)
++        labels = DBSCAN(eps=0.6, min_samples=2, metric='cosine').fit_predict(embeddings)
++
++        result_labels = [-1] * len(processed_articles)
++        for idx, label in zip(valid_indices, labels):
++            result_labels[idx] = label
++
++        return result_labels
++    except Exception as e:
++        print(f"Error during DBSCAN clustering: {e}")
++        return [-1] * len(processed_articles)  # Return default labels on failure
++
++async def process_pipeline(all_articles):
++    processed_articles = []
++    for article in tqdm(all_articles, desc="Processing articles", unit="fetched_article"):
++        try:
++            fetched_article = await fetch_article(article)
++            processed_article = await process_article(fetched_article)
++            if processed_article:
++                processed_articles.append(processed_article)
++        except Exception as e:
++            print(f"Error processing article {article.get('link', 'unknown')}: {e}")
++            continue
++
++    print("Processing articles completed")
++
++        # Save state
++    faiss.write_index(similarity_search_index, VECTOR_STORE_PATH)
++    print("saved similarity FAISS Index")
++    with open(SEEN_URLS_PATH, "w") as p:
++        json.dump(seen_urls, p)
++    print("saved seen urls")
++
++
++    try:
++        cluster_labels = compute_dbscan_clusters(processed_articles)
++        labels = [int(label) for label in cluster_labels]
++        for article, label in zip(processed_articles, labels):
++            if article is not None:
++                article["cluster"] = label
++            else:
++                print("Skipping None article during cluster assignment")
++    except Exception as e:
++        print(f"Error during DBSCAN clustering or label assignment: {e}")
++        for article in processed_articles:
++            if article is not None:
++                article["cluster"] = -1
++    print("Saved DBSCAN clusters")
++
++    with open(PROCESSED_ARTICLES_PATH, "w") as p:
++        json.dump(processed_articles, p, ensure_ascii=False, indent=2)
++    print(f"Saved {len(processed_articles)} processed articles to {PROCESSED_ARTICLES_PATH}")
++
++
++
++
++
++
++
++
++if __name__ == "__main__":
++    all_articles = get_all_parsed_article_links_from_rss()
++    asyncio.run(process_pipeline(all_articles[:20]))
+Index: backend/main.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/main.py b/backend/main.py
+--- a/backend/main.py	(revision c3b1868adda73e60aac6f0b1848ae9b3abdb328f)
++++ b/backend/main.py	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
+@@ -1,5 +1,10 @@
++import sys
++import os
++sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
++
++
+ from fastapi import FastAPI
+-from backend.api.routes import news, highlights, chat
++from backend.api.routes import articles, chat
+ from backend.api.middleware.cors import add_cors_middleware
+ 
+ app = FastAPI(
+@@ -10,9 +15,8 @@
+ 
+ add_cors_middleware(app)
+ 
+-app.include_router(news.router, prefix="/api/v1", tags=["News"])
+-app.include_router(highlights.router, prefix="/api/v1", tags=["Highlights"])
+-app.include_router(chat.router, prefix="/api/v1", tags=["Chat"])
++app.include_router(articles.router, prefix="/api/v1/articles", tags=["Articles"])
++app.include_router(chat.router, prefix="/api/v1/chat", tags=["Chat"])
+ 
+ @app.get("/", tags=["Root"])
+ async def read_root():
+Index: backend/rag/rag_pipeline.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/rag/rag_pipeline.py b/backend/rag/rag_pipeline.py
+new file mode 100644
+--- /dev/null	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
++++ b/backend/rag/rag_pipeline.py	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
+@@ -0,0 +1,269 @@
++import asyncio
++import json
++import os
++from turtledemo.penrose import start
++
++import numpy as np
++import time
++import faiss
++import hashlib
++import ollama
++
++
++
++from sentence_transformers import SentenceTransformer
++from together import Together
++
++
++dimension = 384
++
++from backend.data.config import (
++    VECTOR_STORE_PATH,
++    PROCESSED_ARTICLES_PATH,
++    CHUNK_INDEX_DIR,
++    CACHE_DIR,
++)
++
++
++
++similarity_search_index = None
++def load_stored_faiss_vector():
++    try:
++        if not os.path.exists(VECTOR_STORE_PATH):
++            print(f"FAISS index not found at {VECTOR_STORE_PATH}. Please run article_processor.py first.")
++            return
++        else:
++            return faiss.read_index(VECTOR_STORE_PATH)
++    except Exception as e:
++        print(f"Error loading FAISS index: {e}")
++        return
++try:
++    os.makedirs(CACHE_DIR, exist_ok=True)
++except Exception as e:
++    print(f"Failed to create or access {CACHE_DIR}: {e}")
++
++embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
++
++def load_processed_article():
++    try:
++        if os.path.exists(PROCESSED_ARTICLES_PATH):
++            with open(PROCESSED_ARTICLES_PATH, "r") as f:
++                return json.load(f)
++        return []
++    except Exception as e:
++        print(f"Failed to load processed articles from {PROCESSED_ARTICLES_PATH}: {e}")
++        return []
++
++async def generate_embedding(text):
++    try:
++        return np.array(embedding_model.encode(text[:512], show_progress_bar=False), dtype="float32")
++    except Exception as e:
++        print(f"Error generating embedding: {e}")
++        return None
++    
++async def filter_by_cluster(query, processed_articles, index):
++    start_time = time.time()
++    query_embedding = await generate_embedding(query)
++    if query_embedding is None:
++        print("Failed to generate query embedding")
++        return list(range(index.ntotal))
++    unique_clusters = set(article.get("cluster", -1) for article in processed_articles)
++    centroids = []
++    cluster_indices = {}
++    for cluster in unique_clusters:
++        indices = [i for i, article in enumerate(processed_articles) if article.get("cluster", -1) == cluster]
++        if indices:
++            try:
++                cluster_embeddings = [index.reconstruct(i) for i in indices]
++                centroids.append(np.mean(cluster_embeddings, axis=0))
++                cluster_indices[cluster] = indices
++            except Exception as e:
++                print(f"Error computing centroid for cluster {cluster}: {e}")
++                continue
++    if not centroids:
++        print(f"Cluster filtering took {time.time() - start_time:.3f}s")
++        return list(range(index.ntotal))
++    centroid_index = faiss.IndexFlatL2(dimension)
++    centroid_index.add(np.array(centroids, dtype="float32"))
++    _, I = centroid_index.search(np.array([query_embedding]), k=1)
++    target_cluster = list(unique_clusters)[I[0][0]]
++    print(f"Cluster filtering took {time.time() - start_time:.3f}s")
++    return cluster_indices.get(target_cluster, [])
++
++
++def load_precomputed_chunks(articles):
++    start_time = time.time()
++    chunks = []
++    for article in articles:
++        if "chunks" in article and "chunk_index" in article:
++            try:
++                chunks.extend([
++                    {"text": chunk, "metadata": {
++                        "title": article["title"], "url": article["link"],
++                        "date": article["date"], "author": article["author"]
++                    }} for chunk in article["chunks"]
++                ])
++            except Exception as e:
++                print(f"Error loading chunks for article {article.get('link', 'unknown')}: {e}")
++    print(f"Chunk loading took {time.time() - start_time:.3f}s")
++    return chunks
++
++async def retrieve_top_articles(query,index,processed_articles,k=5):
++    start_time = time.time()
++    filtered_indices = await filter_by_cluster(query,processed_articles,index);
++    print(filtered_indices)
++
++    #if nothing comes up from cluster index PLEASE COME UP DAYYYUM I AM PISSED !!
++    if not filtered_indices:
++        filtered_indices = list(range(index.ntotal)) #TAKE ALL THE ARTICLES
++
++    query_embedding = await generate_embedding(query)
++    if query_embedding is None:
++        print("Failed to generate embedding of the query ")
++        return  []
++    filtered_index = faiss.IndexFlatL2(dimension)
++    try:
++        #fetch already stored indexes created during pipeline
++        filtered_index.add(index.reconstruct_n(0, index.ntotal)[filtered_indices])
++    except Exception as e:
++        print(f"Error building filtered index: {e}")
++        return [], []
++    D, I = filtered_index.search(np.array([query_embedding]), k=k)
++    top_articles = [
++        processed_articles[filtered_indices[i]] for i in I[0]
++        if filtered_indices[i] < len(processed_articles) and processed_articles[filtered_indices[i]]
++    ]
++    print(f"Coarse retrieval took {time.time() - start_time:.3f}s")
++    return top_articles, D[0]
++
++
++async def fine_grained_retrieval(query,articles,k=10):
++    start = time.time()
++    chunk_index = faiss.IndexFlatL2(dimension)
++    chunk_texts = []
++    chunk_metadata = []
++    for article in articles:
++        if "chunk_index" in article:
++            try:
++                article_chunk_index = faiss.read_index(os.path.join(CHUNK_INDEX_DIR,article['chunk_index']))
++                chunk_index.merge_from(article_chunk_index,chunk_index.ntotal)
++                chunk_texts.extend(article['chunks'])
++                chunk_metadata.extend([{
++                    "title": article["title"], "url": article["link"],
++                    "date": article["date"], "author": article["author"]
++                } for _ in article["chunks"]])
++
++            except Exception as e:
++                print(f"Error loading chunk index {article['chunk_index']}: {e}")
++                continue
++
++    if not chunk_texts:
++        print("no chunks available for fine grained retrieval")
++    query_embedding = await generate_embedding(query)
++    if query_embedding is None:
++        print("Failed to generate query embedding for fine-grained retrieval")
++        return [], []
++    D, I = chunk_index.search(np.array([query_embedding]), k=k)
++    top_chunks = [{"text": chunk_texts[i], "metadata": chunk_metadata[i]} for i in I[0] if i < len(chunk_texts)]
++    print(f"Fine-grained retrieval took {time.time() - start:.3f}s")
++    return top_chunks, D[0]
++
++async def rag_generate(query, chunks, api_key, max_context_length=4000):
++    start_time = time.time()
++    context = "\n\n".join([chunk["text"] for chunk in chunks])[:max_context_length]
++    prompt = f'''You are an AI assistant answering questions based on provided context.
++Question: {query}
++Context: {context}
++Answer in a concise, accurate manner, using the context provided.'''
++    try:
++        client = Together(api_key=api_key)
++        response = client.chat.completions.create(
++            model="meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
++            messages=[{"role": "user", "content": prompt}],
++            temperature=0.5
++        )
++        print(f"LLM generation took {time.time() - start_time:.3f}s")
++        return response.choices[0].message.content
++    except Exception as e:
++        print(f"Error generating response: {e}")
++        return None
++
++async def rag_generate_ollama(query, chunks, api_key, max_context_length=4000):
++    start_time = time.time()
++    context = "\n\n".join([chunk["text"] for chunk in chunks])[:max_context_length]
++    prompt = f'''You are an AI assistant answering questions based on provided context.
++Question: {query}
++Context: {context}
++Answer in a concise, accurate manner, using the context provided.'''
++    try:
++        response = ollama.chat(
++            model="qwen2.5vl:latest",
++            messages=[{
++                "role": "user",
++                "content": prompt
++            }],
++            options={
++                "temperature": 0.5
++            }
++        )
++
++        print(f"LLM generation took {time.time() - start_time:.3f}s")
++        return response.message.content
++    except Exception as e:
++        print(f"Error generating response: {e}")
++        return None
++
++
++
++
++async def rag_pipeline(query,index,processed_articles,use_fine_grained=True):
++    query_hash = hashlib.md5(query.encode()).hexdigest()
++    cache_file = os.path.join(CACHE_DIR, f"{query_hash}.json")
++    try:
++        if os.path.exists(cache_file):
++            with open(cache_file, "r") as f:
++                print(f"Cache hit for query: {query}")
++                return json.load(f)
++    except Exception as e:
++        print(f"Error reading cache file {cache_file}: {e}")
++    top_articles, distances = await retrieve_top_articles(query, index, processed_articles, k=5)
++
++    chunks = load_precomputed_chunks(top_articles)
++
++    if use_fine_grained:
++        top_chunks, chunk_distances = await fine_grained_retrieval(query, top_articles, k=10)
++    else:
++        top_chunks = chunks[:10]
++        chunk_distances = []
++
++    response = await rag_generate_ollama(query, top_chunks, api_key=None)
++
++    # Save to cache
++
++    print(response)
++    result = {
++        "query": query,
++        "response": response,
++        "top_articles": [{
++            "title": article["title"],
++            "url": article["link"],
++            "date": article["date"],
++            "author": article["author"]
++        } for article in top_articles],
++        "top_chunks": [chunk["text"] for chunk in top_chunks]
++    }
++
++    print(result)
++
++quuu = "what is kokoda ?"
++
++
++
++if __name__ == "__main__":
++
++    asyncio.run(rag_pipeline(quuu,load_stored_faiss_vector(),load_processed_article(),True))
++
++
++
++
++
+Index: backend/services/chat_service.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/services/chat_service.py b/backend/services/chat_service.py
+--- a/backend/services/chat_service.py	(revision c3b1868adda73e60aac6f0b1848ae9b3abdb328f)
++++ b/backend/services/chat_service.py	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
+@@ -1,0 +1,8 @@
++
++from backend.rag.rag_pipeline import rag_pipeline
++
++def get_chat_response(query: str) -> str:
++    """
++    Gets a response from the RAG chatbot.
++    """
++    return []
+Index: requirements.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/requirements.txt b/requirements.txt
+--- a/requirements.txt	(revision c3b1868adda73e60aac6f0b1848ae9b3abdb328f)
++++ b/requirements.txt	(revision f56af4f6cde55682a86a607853405ac5b3d47252)
+@@ -2,8 +2,10 @@
+ aiohttp==3.12.14
+ aiosignal==1.4.0
+ annotated-types==0.7.0
+-async-timeout==5.0.1
++anyio==4.9.0
++async-timeout==4.0.3
+ attrs==25.3.0
++
+ beautifulsoup4==4.13.4
+ blis==1.3.0
+ catalogue==2.0.10
+@@ -17,19 +19,30 @@
+ cymem==2.0.11
+ en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl#sha256=1932429db727d4bff3deed6b34cfc05df17794f4a52eeb26cf8928f7c1a0fb85
+ eval_type_backport==0.2.2
++exceptiongroup==1.3.0
+ faiss-cpu==1.11.0
+ feedfinder2==0.0.4
+ feedparser==6.0.11
+ filelock==3.18.0
+ frozenlist==1.7.0
+ fsspec==2025.7.0
++h11==0.16.0
+ hf-xet==1.1.6rc2
++httpcore==1.0.9
++httpx==0.28.1
+ huggingface-hub==0.33.4
+ idna==3.10
++iniconfig==2.1.0
+ jieba3k==0.35.1
+ Jinja2==3.1.6
+ joblib==1.5.1
++jsonpatch==1.33
++jsonpointer==3.0.0
++langchain==0.3.26
++langchain-core==0.3.72
++langchain-text-splitters==0.3.8
+ langcodes==3.5.0
++langsmith==0.4.8
+ language_data==1.3.0
+ lxml==6.0.0
+ lxml_html_clean==0.4.2
+@@ -44,18 +57,24 @@
+ newspaper3k==0.2.8
+ nltk==3.9.1
+ numpy==2.2.6
++ollama==0.5.1
++orjson==3.11.0
+ packaging==25.0
+ pillow==11.3.0
++pluggy==1.6.0
+ preshed==3.0.10
+ propcache==0.3.2
+ pydantic==2.11.7
+ pydantic_core==2.33.2
+ Pygments==2.19.2
++pytest==8.4.1
++pytest-asyncio==1.1.0
+ python-dateutil==2.9.0.post0
+ PyYAML==6.0.2
+ regex==2024.11.6
+ requests==2.32.4
+ requests-file==2.1.0
++requests-toolbelt==1.0.0
+ rich==14.0.0
+ safetensors==0.5.3
+ scikit-learn==1.7.1
+@@ -65,19 +84,23 @@
+ shellingham==1.5.4
+ six==1.17.0
+ smart_open==7.3.0.post1
++sniffio==1.3.1
+ soupsieve==2.7
+ spacy==3.8.7
+ spacy-legacy==3.0.12
+ spacy-loggers==1.0.5
++SQLAlchemy==2.0.41
+ srsly==2.5.1
+ sympy==1.14.0
+ tabulate==0.9.0
++tenacity==9.1.2
+ thinc==8.3.6
+ threadpoolctl==3.6.0
+ tinysegmenter==0.3
+ tldextract==5.3.0
+ together==1.5.21
+ tokenizers==0.21.2
++tomli==2.2.1
+ torch==2.7.1
+ tqdm==4.67.1
+ transformers==4.53.3
+@@ -89,3 +112,4 @@
+ weasel==0.4.1
+ wrapt==1.17.2
+ yarl==1.20.1
++zstandard==0.23.0
+Index: backend/api/routes/news.py
+===================================================================
+diff --git a/backend/api/routes/news.py b/backend/api/routes/news.py
+deleted file mode 100644
+--- a/backend/api/routes/news.py	(revision c3b1868adda73e60aac6f0b1848ae9b3abdb328f)
++++ /dev/null	(revision c3b1868adda73e60aac6f0b1848ae9b3abdb328f)
+@@ -1,13 +0,0 @@
+-from fastapi import APIRouter, Depends
+-from sqlalchemy.orm import Session
+-from backend.database.connection import get_db
+-from backend.database.repositories.article_repo import ArticleRepository
+-from backend.services.news_service import NewsService
+-
+-router = APIRouter()
+-
+-@router.get("/news")
+-def get_all_news(db: Session = Depends(get_db)):
+-    repo = ArticleRepository(db)
+-    service = NewsService(repo)
+-    return service.get_all_articles()
+Index: backend/data/extractors/extract_and_process_pipeline.py
+===================================================================
+diff --git a/backend/data/extractors/extract_and_process_pipeline.py b/backend/data/extractors/extract_and_process_pipeline.py
+deleted file mode 100644
+--- a/backend/data/extractors/extract_and_process_pipeline.py	(revision c3b1868adda73e60aac6f0b1848ae9b3abdb328f)
++++ /dev/null	(revision c3b1868adda73e60aac6f0b1848ae9b3abdb328f)
+@@ -1,201 +0,0 @@
+-import hashlib
+-import asyncio
+-import faiss
+-import numpy as np
+-import spacy
+-from tqdm import tqdm
+-from together import Together
+-from newspaper import Article
+-from sentence_transformers import SentenceTransformer
+-from sklearn.cluster import DBSCAN
+-from rss_main import  get_all_parsed_article_links_from_rss
+-
+-
+-SIMILARITY_THRESHOLD = 0.90
+-
+-dimension = 384
+-embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
+-nlp = spacy.load("en_core_web_sm")
+-similarity_search_index = faiss.IndexFlatL2(dimension)
+-seen_urls  = {}
+-seen_texts = []
+-
+-
+-
+-async def fetch_article(article):
+-    try:
+-        current_article = Article(article['link'])
+-        current_article.download()
+-        current_article.parse()
+-
+-        if current_article.text and str(current_article.text).strip() != "":
+-            article_detail_dict = {
+-                "title": article.get('title', current_article.title),
+-                "article": current_article.text,
+-                "author": current_article.authors if current_article.authors else ["Unknown"],
+-                "date": getattr(current_article, 'published_date', None) or "Unknown",
+-                "link": article['link']
+-
+-            }
+-
+-            return article_detail_dict
+-
+-
+-    except Exception as e:
+-        print(f"Error processing link {article.get('link')}: {e}")
+-        return None
+-
+-def preprocess(article_text):
+-    tokenized_doc = nlp(article_text.lower())
+-    tokens = [
+-        token.lemma_
+-        for token in tokenized_doc
+-        if not token.is_stop and not token.is_punct
+-    ]
+-    return " ".join(tokens)
+-
+-async def generate_embedding(article_text):
+-    return np.array(embedding_model.encode(article_text[:512]),dtype="float32")
+-
+-    ### TODO .... KUCH NA, COMING BACK TO YOU AND SLEEP 😴. Good night ❤️
+-
+-async def is_similar_article(article_text,embedding,enable_dbscan=True):
+-    if similarity_search_index.ntotal > 0:
+-        D, _ = similarity_search_index.search(np.array([embedding]),k=1)
+-        distance = D[0][0]
+-        cosine_sim = 1- distance/2
+-        if cosine_sim > SIMILARITY_THRESHOLD:
+-            return True
+-
+-
+-    if enable_dbscan:
+-        ### TODO need to optimise this since it looks for in entire historical corpus
+-        articles_to_compare = seen_texts + [article_text]
+-        processed = [preprocess(t) for t in articles_to_compare]
+-        embeddings = embedding_model.encode(processed)
+-        labels = DBSCAN(eps=0.15,min_samples=2,metric='cosine').fit_predict(embeddings)
+-
+-        if labels[-1] != -1:
+-            return True
+-
+-    return False
+-
+-async def process_article(article_detail_dict_data):
+-    if not article_detail_dict_data or not article_detail_dict_data.get('article'):
+-        return None
+-
+-    url = article_detail_dict_data['link']
+-    content_hash = hashlib.md5(article_detail_dict_data['article'].encode()).hexdigest()
+-
+-    if url in seen_urls or content_hash in seen_urls.values():
+-        print("Url already processed : Duplicate")
+-        return None
+-
+-    embedding = await generate_embedding(article_detail_dict_data['article'])
+-    if is_similar_article(article_detail_dict_data['article'],embedding,enable_dbscan=True):
+-        return None
+-
+-    return "not similar"
+-
+-#     await call_the_llm(article_detail_dict_data)
+-def response_to_dic(content):
+-    replacement=content.replace("\n",":")
+-    splitting=replacement.split(':')
+-    dic={}
+-    l=len(splitting)
+-    for i in range(l):
+-        if i%2==0:
+-            continue
+-        else:
+-            dic[splitting[i-1]]=splitting[i]
+-    return dic
+-
+-
+-
+-
+-def call_the_llm(article_detail_dict_data):
+-    prompt = f'''You are news summariser 
+-     Given the Article text below, extract 
+-     1.) Categorise into one of these: Sports, Lifestyle, Music , Finance
+-     2.) Highlight
+-     3.) Summary (80 words)
+-     
+-     Article:
+-     
+-      {test_article[:4000]}
+-     
+-     Format:
+-     Category : <one word>
+-     Highlight : <one line>
+-     Summary :<80 words>
+-     '''
+-    try:
+-        client = Together(api_key="0a12e0c577c401ea0e5d79f44fba4fe49b8ef5b865e864c6f6e6965bb756540d")
+-        response = client.chat.completions.create(
+-
+-            model="meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+-            messages=[{
+-                "role": "user",
+-                "content": prompt
+-            }],
+-            temperature=0.5
+-        )
+-        content = response.choices[0].message.content
+-        print(content)
+-    except Exception as e:
+-
+-        print(f"Error while processing", e)
+-
+-
+-
+-async def process_pipeline(all_articles):
+-    for article in tqdm(all_articles,desc = "Processing articles", unit = "fetched_article"):
+-        fetched_article = await fetch_article(article)
+-        # print(fetched_article)
+-        processed_article=await process_article(fetched_article)
+-        print(processed_article)
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-test_article = f'''India, officially the Republic of India,[j][20] is a country in South Asia. It is the seventh-largest country by area; the most populous country since 2023;[21] and, since its independence in 1947, the world's most populous democracy.[22][23][24] Bounded by the Indian Ocean on the south, the Arabian Sea on the southwest, and the Bay of Bengal on the southeast, it shares land borders with Pakistan to the west;[k] China, Nepal, and Bhutan to the north; and Bangladesh and Myanmar to the east. In the Indian Ocean, India is near Sri Lanka and the Maldives; its Andaman and Nicobar Islands share a maritime border with Thailand, Myanmar, and Indonesia.
+-Modern humans arrived on the Indian subcontinent from Africa no later than 55,000 years ago.[26][27][28] Their long occupation, predominantly in isolation as hunter-gatherers, has made the region highly diverse.[29] Settled life emerged on the subcontinent in the western margins of the Indus river basin 9,000 years ago, evolving gradually into the Indus Valley Civilisation of the third millennium BCE.[30] By 1200 BCE, an archaic form of Sanskrit, an Indo-European language, had diffused into India from the northwest.[31][32] Its hymns recorded the early dawnings of Hinduism in India.[33] India's pre-existing Dravidian languages were supplanted in the northern regions.[34] By 400 BCE, caste had emerged within Hinduism,[35] and Buddhism and Jainism had arisen, proclaiming social orders unlinked to heredity.[36] Early political consolidations gave rise to the loose-knit Maurya and Gupta Empires.[37] Widespread creativity suffused this era,[38] but the status of women declined,[39] and untouchability became an organized belief.[l][40] In South India, the Middle kingdoms exported Dravidian language scripts and religious cultures to the kingdoms of Southeast Asia.[41]
+-In the early medieval era, Christianity, Islam, Judaism, and Zoroastrianism became established on India's southern and western coasts.[42] Muslim armies from Central Asia intermittently overran India's northern plains in the second millennium.[43] The resulting Delhi Sultanate drew northern India into the cosmopolitan networks of medieval Islam.[44] In south India, the Vijayanagara Empire created a long-lasting composite Hindu culture.[45] In the Punjab, Sikhism emerged, rejecting institutionalised religion.[46] The Mughal Empire ushered in two centuries of economic expansion and relative peace,[47] leaving a rich architectural legacy.[48][49] Gradually expanding rule of the British East India Company turned India into a colonial economy but consolidated its sovereignty.[50] British Crown rule began in 1858. The rights promised to Indians were granted slowly,[51][52] but technological changes were introduced, and modern ideas of education and the public life took root.[53] A nationalist movement emerged in India, the first in the non-European British empire and an influence on other nationalist movements.[54][55] Noted for nonviolent resistance after 1920,[56] it became the primary factor in ending British rule.[57] In 1947, the British Indian Empire was partitioned into two independent dominions,[58][59][60][61] a Hindu-majority dominion of India and a Muslim-majority dominion of Pakistan. A large-scale loss of life and an unprecedented migration accompanied the partition.[62]'''
+-
+-# lolll = call_the_llm(test_article)
+-
+-
+-if __name__ == "__main__":
+-    all_articles = get_all_parsed_article_links_from_rss()
+-    asyncio.run(process_pipeline(all_articles[:10]))
+-
+diff --git a/backend/api/routes/highlights.py b/backend/data/extractors/test/__init__.py
+rename from backend/api/routes/highlights.py
+rename to backend/data/extractors/test/__init__.py
+diff --git a/backend/data/processors/ml_processor.py b/backend/data/processors/ml_processor.py
+deleted file mode 100644
+diff --git a/backend/rag/embeddings.py b/backend/rag/embeddings.py
+deleted file mode 100644
+diff --git a/backend/rag/generator.py b/backend/rag/generator.py
+deleted file mode 100644
+diff --git a/backend/rag/retriever.py b/backend/rag/retriever.py
+deleted file mode 100644
+diff --git a/backend/rag/vector_store.py b/backend/rag/vector_store.py
+deleted file mode 100644
